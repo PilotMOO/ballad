@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": "minecraft:stick",
+    "X": "#birch_n_bees:cobble_tier_3",
+    "F": "minecraft:flint",
+    "W": "birch_n_bees:wildflower_twine"
+  },
+  "pattern": [
+    "FXW",
+    " #X",
+    "# X"
+  ],
+  "result": {
+    "count": 1,
+    "id": "birch_n_bees:crude_cobblestone_pickaxe"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": "minecraft:honeycomb",
+    "s": "birch_n_bees:wildflower_twine",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    " s#",
+    " Ss",
+    "S  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "birch_n_bees:honey_shovel"
+  }
+}

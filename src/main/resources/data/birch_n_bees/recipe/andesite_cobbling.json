@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "birch_n_bees:andesite_pebble",
+    "birch_n_bees:andesite_pebble",
+    "birch_n_bees:andesite_pebble",
+    "birch_n_bees:andesite_pebble",
+    "birch_n_bees:andesite_pebble",
+    "birch_n_bees:andesite_pebble",
+    "birch_n_bees:andesite_pebble",
+    "birch_n_bees:andesite_pebble"
+  ],
+  "result": {
+    "count": 1,
+    "id": "birch_n_bees:cobbled_andesite"
+  }
+}

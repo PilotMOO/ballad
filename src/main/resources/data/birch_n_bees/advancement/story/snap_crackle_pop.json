@@ -1,0 +1,36 @@
+{
+  "parent": "birch_n_bees:story/birching_table",
+  "criteria": {
+    "items": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "birch_n_bees:wildflower_popper"
+          }
+        ]
+      }
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.ballad.snap_crackle_pop.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "birch_n_bees:wildflower_popper"
+    },
+    "title": {
+      "translate": "advancements.ballad.snap_crackle_pop.title"
+    },
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "items"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

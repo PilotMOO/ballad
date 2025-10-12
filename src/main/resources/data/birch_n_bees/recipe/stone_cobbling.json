@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "birch_n_bees:stone_pebble",
+    "birch_n_bees:stone_pebble",
+    "birch_n_bees:stone_pebble",
+    "birch_n_bees:stone_pebble",
+    "birch_n_bees:stone_pebble",
+    "birch_n_bees:stone_pebble",
+    "birch_n_bees:stone_pebble",
+    "birch_n_bees:stone_pebble"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:cobblestone"
+  }
+}

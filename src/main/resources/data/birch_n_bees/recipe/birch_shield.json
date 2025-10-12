@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": "birch_n_bees:birch_bark",
+    "P": "#minecraft:planks",
+    "W": "birch_n_bees:wildflower_twine"
+  },
+  "pattern": [
+    "WB ",
+    "BPB",
+    " BW"
+  ],
+  "result": {
+    "count": 1,
+    "id": "birch_n_bees:birch_shield"
+  }
+}
