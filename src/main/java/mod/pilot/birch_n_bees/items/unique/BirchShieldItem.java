@@ -23,15 +23,15 @@ import java.util.function.Consumer;
 public class BirchShieldItem extends ShieldItem {
     public BirchShieldItem(Properties properties) {
         super(properties
-                .durability(32)
+                .durability(48)
                 .repairable(ItemTags.WOODEN_TOOL_MATERIALS)
                 .equippableUnswappable(EquipmentSlot.OFFHAND)
                 .component(
                         DataComponents.BLOCKS_ATTACKS,
                         new BlocksAttacks(
-                                .75F,
+                                .5F,
                                 0.75F,
-                                List.of(new BlocksAttacks.DamageReduction(50.0F, Optional.empty(), 0.0F, 1.0F)),
+                                List.of(new BlocksAttacks.DamageReduction(75.0F, Optional.empty(), 0.0F, 1.0F)),
                                 new BlocksAttacks.ItemDamageFunction(1.0F, 1.0F, 1.5F),
                                 Optional.of(DamageTypeTags.BYPASSES_SHIELD),
                                 Optional.of(SoundEvents.SHIELD_BLOCK),

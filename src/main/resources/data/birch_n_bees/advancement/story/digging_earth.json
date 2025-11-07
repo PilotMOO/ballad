@@ -35,5 +35,10 @@
       "items"
     ]
   ],
+  "rewards": {
+    "recipes": [
+      "birch_n_bees:flint_knife"
+    ]
+  },
   "sends_telemetry_event": true
 }
