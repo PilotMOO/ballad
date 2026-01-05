@@ -2,6 +2,7 @@ package mod.pilot.birch_n_bees;
 
 import mod.pilot.birch_n_bees.achievements.BirchCriteriaRegistry;
 import mod.pilot.birch_n_bees.blocks.BirchBlocks;
+import mod.pilot.birch_n_bees.effects.BirchEffects;
 import mod.pilot.birch_n_bees.entity.BirchEntities;
 import mod.pilot.birch_n_bees.items.BirchCreativeTabs;
 import mod.pilot.birch_n_bees.items.BirchItems;
@@ -25,6 +26,7 @@ public class ABalladofBirchandBees
 
         BirchBlocks.BLOCKS.register(modEventBus);
         BirchItems.ITEMS.register(modEventBus);
+        BirchEffects.EFFECTS.register(modEventBus);
         BirchCreativeTabs.TABS.register(modEventBus);
         BirchEntities.ENTITIES.register(modEventBus);
         BirchCriteriaRegistry.TRIGGERS.register(modEventBus);

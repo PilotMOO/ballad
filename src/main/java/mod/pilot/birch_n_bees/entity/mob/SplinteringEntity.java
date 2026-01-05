@@ -41,8 +41,6 @@ public class SplinteringEntity extends Creeper implements GeoEntity {
                 .add(Attributes.ATTACK_SPEED, 2D);
     }
 
-
-
     public static final EntityDataAccessor<Integer> data_SWELL = SynchedEntityData.defineId(SplinteringEntity.class, EntityDataSerializers.INT);
     public int getSwell(){return entityData.get(data_SWELL);}
     public void setSwell(int count) {
