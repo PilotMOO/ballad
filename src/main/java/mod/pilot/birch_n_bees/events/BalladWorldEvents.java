@@ -320,12 +320,11 @@ public class BalladWorldEvents {
 
     @SubscribeEvent
     public static void mining(PlayerEvent.BreakSpeed event){
-        //Note !
-        if (!event.getEntity().getInventory().getSelectedItem()
+        if (event.getState().is(Blocks.BIRCH_LOG)) event.setNewSpeed(event.getOriginalSpeed() / 2f);
+        else if (!event.getEntity().getInventory().getSelectedItem()
                 .isCorrectToolForDrops(event.getState())){
             float div = 10f;
-            if (event.getState().is(Blocks.BIRCH_LOG)) div = 2f;
             event.setNewSpeed(event.getOriginalSpeed() / div);
-        }
+        } else event.setNewSpeed(event.getOriginalSpeed() / 5);
     }
 }

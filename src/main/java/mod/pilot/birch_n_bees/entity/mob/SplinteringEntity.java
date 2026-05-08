@@ -2,22 +2,33 @@ package mod.pilot.birch_n_bees.entity.mob;
 
 import mod.pilot.birch_n_bees.entity.BirchEntities;
 import mod.pilot.birch_n_bees.entity.projectiles.SplinterProjectileEntity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MoverType;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.Cat;
+import net.minecraft.world.entity.animal.Ocelot;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.manager.AnimatableManager;
@@ -25,9 +36,11 @@ import software.bernie.geckolib.animatable.processing.AnimationController;
 import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class SplinteringEntity extends Creeper implements GeoEntity {
-    public SplinteringEntity(EntityType<? extends Creeper> p_32278_, Level p_32279_) {
-        super(p_32278_, p_32279_);
+import java.util.EnumSet;
+
+public class SplinteringEntity extends Monster implements GeoEntity {
+    public SplinteringEntity(EntityType<? extends Monster> entityType, Level level) {
+        super(entityType, level);
     }
 
     public static AttributeSupplier.@NotNull Builder createAttributes(){
@@ -35,64 +48,81 @@ public class SplinteringEntity extends Creeper implements GeoEntity {
                 .add(Attributes.MAX_HEALTH, 16D)
                 .add(Attributes.ARMOR, 1)
                 .add(Attributes.FOLLOW_RANGE, 32)
-                .add(Attributes.MOVEMENT_SPEED, 0.3D)
+                .add(Attributes.MOVEMENT_SPEED, 0.25D)
                 .add(Attributes.ATTACK_DAMAGE, 0D)
                 .add(Attributes.ATTACK_KNOCKBACK, 0D)
                 .add(Attributes.ATTACK_SPEED, 2D);
     }
 
-    public static final EntityDataAccessor<Integer> data_SWELL = SynchedEntityData.defineId(SplinteringEntity.class, EntityDataSerializers.INT);
-    public int getSwell(){return entityData.get(data_SWELL);}
+    public static final EntityDataAccessor<Integer> SWELL = SynchedEntityData.defineId(SplinteringEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> IGNITED = SynchedEntityData.defineId(SplinteringEntity.class, EntityDataSerializers.BOOLEAN);
+    public int getSwell(){return entityData.get(SWELL);}
     public void setSwell(int count) {
-        entityData.set(data_SWELL, count);
+        entityData.set(SWELL, count);
     }
     public void syncSwell(){
-        setSwell(swell);
+        setSwell(local_swell);
+    }
+    public boolean getIgnited(){return entityData.get(IGNITED);}
+    public void setIgnited(boolean flag) {
+        entityData.set(IGNITED, flag);
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putInt("swell", getSwell());
+        tag.putBoolean("ignited", getIgnited());
     }
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         setSwell(tag.getInt("swell").orElse(0));
+        setIgnited(tag.getBoolean("ignited").orElse(false));
     }
     @Override
     protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
         super.defineSynchedData(builder);
-        builder.define(data_SWELL, 0);
+        builder.define(SWELL, 0);
+        builder.define(IGNITED, false);
     }
 
-    public int swell, oldSwell;
+    @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(1, new FloatGoal(this));
+        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Ocelot.class, 6.0F, 1.0, 1.2));
+        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Cat.class, 6.0F, 1.0, 1.2));
+        this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1.0, false));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
+
+        this.goalSelector.addGoal(2, new SplinteringSwellGoal(this));
+    }
+
+    public int local_swell, oldSwell;
     public static final int maxSwell = 30;
+    
 
-
-    //TODO: FIX THE EXPLODING LOGIC, PROBABLY JUST WRITE YOUR OWN RATHER THAN USING BASE CREEPER
     public void tick() {
         if (this.isAlive()) {
-            this.oldSwell = this.swell;
-            if (this.isIgnited() || getSwellDir() != 0) {
-                this.setSwell(this.swell = 1);
-                setSwellDir(0);
-
+            this.oldSwell = this.local_swell;
+            if (this.getIgnited() || getSwell() != 0) {
                 int i = this.getSwell();
-                if (i > 0 && this.swell == 1) {
+                if (local_swell == 0) local_swell = i;
+                if (i > 0 && this.local_swell == 1) {
                     this.playSound(SoundEvents.CREEPER_PRIMED, 1.0F, 1.0F);
                     this.gameEvent(GameEvent.PRIME_FUSE);
                 }
 
-                this.swell += i;
-                if (this.swell < 0) {
-                    this.swell = 0;
-                }
+                this.local_swell++;
                 syncSwell();
             }
 
-            if (this.swell >= maxSwell) {
-                this.swell = maxSwell;
+            if (this.local_swell >= maxSwell) {
+                this.local_swell = maxSwell;
                 this.explodeSplintering();
             }
         }
@@ -102,18 +132,25 @@ public class SplinteringEntity extends Creeper implements GeoEntity {
 
 
     public void explodeSplintering(){
-        setSwell(swell = 0);
+        setSwell(local_swell = 0);
         this.dead = true;
         if (this.level() instanceof ServerLevel server){
             server.explode(this, getX(), getY(), getZ(),
                     .5f, Level.ExplosionInteraction.BLOCK);
+            RandomSource random = server.random;
 
-            float xRot = 0, yRot = 0;
-            for (int i = 0; i < 12; i++){
-                xRot += 30f; //360f/12
-                for (int j = 0; j < 8; j++){
-                    yRot += 11.25f; //90f/8
-                    getSplinter(server, this, xRot, yRot);
+            float xRot, yRot;
+            for (int loop = 0; loop < 2; loop++) {
+                xRot = -80;
+                yRot = 0;
+                for (int i = 0; i < 15; i++) {
+                    xRot += 9f;
+                    for (int j = 0; j < 8; j++) {
+                        yRot += 11.25f; //90f/8
+                        if (random.nextBoolean()) getSplinter(server, this,
+                                xRot + random.nextInt(-50, 50) / 10f,
+                                yRot + random.nextInt(-100, 100) / 10f);
+                    }
                 }
             }
             this.triggerOnDeathMobEffects(server, RemovalReason.KILLED);
@@ -128,7 +165,7 @@ public class SplinteringEntity extends Creeper implements GeoEntity {
         splinter.move(MoverType.SELF, new Vec3(0, from.getEyeHeight(), 0));
         splinter.setNoPickup(server.random.nextDouble() > 0.05);
         splinter.setOwner(from);
-        splinter.setDamage(1f);
+        splinter.setDamage(3f);
         splinter.setIgnoreIFrames();
         splinter.shootFromRotation(from, xRot, yRot, 0.0F, 1.0F, 5.0F);
         server.addFreshEntity(splinter);
@@ -141,9 +178,9 @@ public class SplinteringEntity extends Creeper implements GeoEntity {
     }
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>("splintering", event -> {
-            if (swell != 0){
-                return event.setAndContinue(RawAnimation.begin().thenLoop("explode"));
+        controllers.add(new AnimationController<>("splintering", 2,event -> {
+            if (local_swell != 0){
+                return event.setAndContinue(RawAnimation.begin().thenPlayAndHold("explode"));
             }
             else if (isMoving()){
                 return event.setAndContinue(RawAnimation.begin().thenLoop("walk"));
@@ -156,5 +193,38 @@ public class SplinteringEntity extends Creeper implements GeoEntity {
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return cache;
+    }
+
+    @Override
+    protected @NotNull SoundEvent getDeathSound() {
+        return SoundEvents.CREAKING_DEATH;
+    }
+    @Override
+    protected @NotNull SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
+        return SoundEvents.AXE_STRIP;
+    }
+    @Override
+    protected @Nullable SoundEvent getAmbientSound() {
+        return SoundEvents.CREAKING_AMBIENT;
+    }
+
+    public static boolean splinteringSpawnCheck(EntityType<? extends Monster> entityType, ServerLevelAccessor level,
+                                                EntitySpawnReason spawnReason, BlockPos pos, RandomSource random){
+        return level.getBiome(pos).is(Tags.Biomes.IS_BIRCH_FOREST) && Monster.checkMonsterSpawnRules(entityType, level, spawnReason, pos, random);
+    }
+
+    public static class SplinteringSwellGoal extends Goal {
+        public final SplinteringEntity splintering;
+        public SplinteringSwellGoal(SplinteringEntity splintering) {
+            this.splintering = splintering;
+            this.setFlags(EnumSet.of(Flag.MOVE));
+        }
+        public boolean canUse() {
+            LivingEntity livingentity = this.splintering.getTarget();
+            return this.splintering.getSwell() > 0 || livingentity != null && this.splintering.distanceToSqr(livingentity) < (double)7.0F;
+        }
+        public void start() {
+            splintering.setIgnited(true);
+        }
     }
 }

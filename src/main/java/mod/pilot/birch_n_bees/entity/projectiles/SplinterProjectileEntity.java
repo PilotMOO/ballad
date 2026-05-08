@@ -27,6 +27,7 @@ import org.jetbrains.annotations.NotNull;
 public class SplinterProjectileEntity extends AbstractArrow implements ItemSupplier {
     public SplinterProjectileEntity(EntityType<? extends AbstractArrow> entityType, Level level) {
         super(entityType, level);
+        pickup = Pickup.ALLOWED;
     }
 
     public static EntityDataAccessor<Float> DAMAGE =
@@ -69,8 +70,14 @@ public class SplinterProjectileEntity extends AbstractArrow implements ItemSuppl
     }
 
     @Override protected @NotNull ItemStack getDefaultPickupItem() { return BirchItems.SPLINTERS.toStack(); }
-    @Override public @NotNull ItemStack getItem() { return allowPickup() ? getDefaultPickupItem() : ItemStack.EMPTY; }
-    @Override protected @NotNull ItemStack getPickupItem() { return getItem(); }
+    @Override public @NotNull ItemStack getItem() { return getDefaultPickupItem(); }
+    @Override protected @NotNull ItemStack getPickupItem() { return getDefaultPickupItem(); }
+
+    @Override
+    protected boolean tryPickup(@NotNull Player player) {
+        if (allowPickup()) return super.tryPickup(player);
+        else return false;
+    }
 
     @Override
     protected void onHitEntity(EntityHitResult result) {
@@ -84,9 +91,7 @@ public class SplinterProjectileEntity extends AbstractArrow implements ItemSuppl
             entity.invulnerableTime = 0;
         }
         if (entity.hurtOrSimulate(damagesource, getDamage())) {
-            if (entity instanceof EnderMan) {
-                return;
-            }
+            if (entity instanceof EnderMan) return;
 
             if (entity instanceof LivingEntity) {
                 LivingEntity livingentity = (LivingEntity)entity;
@@ -124,5 +129,15 @@ public class SplinterProjectileEntity extends AbstractArrow implements ItemSuppl
                 }
             }
         }
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        int life = 3000;
+        if (getDeltaMovement().lengthSqr() < 1.0E-7) {
+            life /= allowPickup() ? 5 : 10;
+        }
+        if (tickCount >= life) discard();
     }
 }

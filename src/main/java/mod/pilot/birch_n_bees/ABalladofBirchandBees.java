@@ -1,5 +1,6 @@
 package mod.pilot.birch_n_bees;
 
+import com.mojang.serialization.MapCodec;
 import mod.pilot.birch_n_bees.achievements.BirchCriteriaRegistry;
 import mod.pilot.birch_n_bees.blocks.BirchBlocks;
 import mod.pilot.birch_n_bees.effects.BirchEffects;
@@ -7,10 +8,14 @@ import mod.pilot.birch_n_bees.entity.BirchEntities;
 import mod.pilot.birch_n_bees.items.BirchCreativeTabs;
 import mod.pilot.birch_n_bees.items.BirchItems;
 import mod.pilot.birch_n_bees.systems.HotBrickWatcher;
+import mod.pilot.birch_n_bees.util.BirchBiomeModification;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.neoforge.common.world.BiomeModifier;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(ABalladofBirchandBees.MOD_ID)
@@ -30,6 +35,11 @@ public class ABalladofBirchandBees
         BirchCreativeTabs.TABS.register(modEventBus);
         BirchEntities.ENTITIES.register(modEventBus);
         BirchCriteriaRegistry.TRIGGERS.register(modEventBus);
+
+        final DeferredRegister<MapCodec<? extends BiomeModifier>> biomeModifiers =
+                DeferredRegister.create(NeoForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, MOD_ID);
+        biomeModifiers.register(modEventBus);
+        biomeModifiers.register("birch_spawns", () -> BirchBiomeModification.CODEC);
     }
     public static boolean configLoaded = false;
 }
