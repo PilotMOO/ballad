@@ -1,7 +1,7 @@
 package mod.pilot.birch_n_bees.events;
 
 import mod.pilot.birch_n_bees.ABalladofBirchandBees;
-import mod.pilot.birch_n_bees.achievements.BirchCriteriaRegistry;
+import mod.pilot.birch_n_bees.achievements.BirchCriteriaRegistries;
 import mod.pilot.birch_n_bees.blocks.BirchBlocks;
 import mod.pilot.birch_n_bees.data.BirchDataHelper;
 import mod.pilot.birch_n_bees.effects.BirchEffects;
@@ -37,7 +37,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
@@ -76,7 +75,7 @@ public class BalladWorldEvents {
 
             if (player.level() instanceof ServerLevel server) {
                 BirchDataHelper.popBees(server, event.getPos().getCenter(), 4, player);
-                BirchCriteriaRegistry.BREAK_BIRCH.get().trigger(player);
+                BirchCriteriaRegistries.BREAK_BIRCH.get().trigger(player);
             }
         }
     }
@@ -233,7 +232,7 @@ public class BalladWorldEvents {
                 player.playNotifySound(SoundEvents.ENDER_DRAGON_GROWL, SoundSource.BLOCKS, 1f, 0.25f);
                 player.displayClientMessage(Component.translatable("birch_n_bees.message.contraband"), false);
                 player.getCooldowns().addCooldown(item, 500);
-                BirchCriteriaRegistry.CONTRABAND.get().trigger(player);
+                BirchCriteriaRegistries.CONTRABAND.get().trigger(player);
             }
 
             RandomSource random = server.random;
@@ -272,7 +271,7 @@ public class BalladWorldEvents {
                 && event.getSource().getEntity() instanceof Player player){
             player.playNotifySound(SoundEvents.ENDER_DRAGON_GROWL, SoundSource.BLOCKS, 1.5f, 0.75f);
             player.displayClientMessage(Component.translatable("birch_n_bees.message.unlawful_animal_killing"), false);
-            BirchCriteriaRegistry.ILLEGAL_HUNTING.get().trigger(player);
+            BirchCriteriaRegistries.ILLEGAL_HUNTING.get().trigger(player);
 
             BirchDataHelper.popKillerBees(server, animal.position(), 5, player);
         }
@@ -281,7 +280,7 @@ public class BalladWorldEvents {
     @SubscribeEvent
     public static void nightWatch(ServerTickEvent.Post event){
         if ((float)(event.getServer().overworld().getDayTime() % 24000L) / 24000L >= .5f){
-            event.getServer().overworld().players().forEach((player) -> BirchCriteriaRegistry.NIGHT.get().trigger(player));
+            event.getServer().overworld().players().forEach((player) -> BirchCriteriaRegistries.NIGHT.get().trigger(player));
         }
     }
 

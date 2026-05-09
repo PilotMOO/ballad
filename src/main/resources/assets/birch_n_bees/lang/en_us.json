@@ -35,6 +35,11 @@
   "item.birch_n_bees.wildflower_popper": "§6Wildflower Popper",
   "item.birch_n_bees.wildflower_popper.description": "§7Made with sugar, spice, and §meverything nice§r§7 a little bit of gunpowder, this cute little firecracker can still cause a bit of damage despite its small size!",
 
+  "item.birch_n_bees.buildable_tool.no_head": "§7No tool head!",
+  "item.birch_n_bees.buildable_tool.tool_head": "§7Tool head: §6",
+  "item.birch_n_bees.buildable_tool.will_build": "§7Building: §r",
+
+
   "item.birch_n_bees.honey_axe": "§6Honey Axe",
   "item.birch_n_bees.honey_axe.description": "§7A crude axe constructed of §6honeycomb §7and twigs, tied together with §2wildflower twine. §7It'll probably fall apart soon but you might be able to get some use out of it...",
   "item.birch_n_bees.honey_shovel": "§6Honey Shovel",
@@ -67,6 +72,9 @@
 
   "birch_n_bees.message.wood_too_hard": "§6Your tainted hand is not worthy enough to break our precious trees.",
   "birch_n_bees.message.stone_too_hard": "§7This stone seems too hard to break... §6Maybe find a softer rock first?",
+  "birch_n_bees.message.empty_offhand": "§7You need a tool head to build a tool!",
+  "birch_n_bees.message.invalid_toolhead": "§7Wrong tool head!",
+
   "birch_n_bees.message.contraband": "§l§4[CONTRABAND SPOTTED: REQUESTING TERMINATION]",
   "birch_n_bees.message.unlawful_animal_killing": "§4SLAUGHTER OF ANIMALS BY AN IMPURE IS STRICTLY FORBIDDEN.",
 

@@ -6,7 +6,7 @@ import net.minecraft.core.registries.Registries;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-public class BirchCriteriaRegistry {
+public class BirchCriteriaRegistries {
     public static final DeferredRegister<CriterionTrigger<?>> TRIGGERS =
             DeferredRegister.create(Registries.TRIGGER_TYPE, ABalladofBirchandBees.MOD_ID);
 

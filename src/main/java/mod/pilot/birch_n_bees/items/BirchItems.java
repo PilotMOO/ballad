@@ -17,6 +17,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class BirchItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(ABalladofBirchandBees.MOD_ID);
@@ -151,4 +152,13 @@ public class BirchItems {
     public static final DeferredItem<Item> CLAYFLINT = ITEMS.registerItem("clayflint", (Item::new));
     public static final DeferredItem<Item> MOON = ITEMS.registerItem("moon", (Item::new));
     public static final DeferredItem<Item> WITHER_HEART = ITEMS.registerItem("wither_heart", (Item::new));
+
+    public static final DeferredItem<TestingToolBase> TESTING_TOOL_BASE = ITEMS.registerItem("buildable_tool",
+            TestingToolBase::new);
+
+/*    public static <I extends BuildableToolBase> DeferredItem<I> registerBuildableTool(String name, Supplier<I> supplier) {
+        I tool = supplier.get();
+        tool.fillValidHeads();
+        return ITEMS.registerItem(name, (properties)->tool);
+    }*/
 }

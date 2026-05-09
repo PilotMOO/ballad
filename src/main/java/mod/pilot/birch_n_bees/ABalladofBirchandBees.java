@@ -1,7 +1,7 @@
 package mod.pilot.birch_n_bees;
 
 import com.mojang.serialization.MapCodec;
-import mod.pilot.birch_n_bees.achievements.BirchCriteriaRegistry;
+import mod.pilot.birch_n_bees.achievements.BirchCriteriaRegistries;
 import mod.pilot.birch_n_bees.blocks.BirchBlocks;
 import mod.pilot.birch_n_bees.effects.BirchEffects;
 import mod.pilot.birch_n_bees.entity.BirchEntities;
@@ -9,6 +9,7 @@ import mod.pilot.birch_n_bees.items.BirchCreativeTabs;
 import mod.pilot.birch_n_bees.items.BirchItems;
 import mod.pilot.birch_n_bees.systems.HotBrickWatcher;
 import mod.pilot.birch_n_bees.util.BirchBiomeModification;
+import mod.pilot.birch_n_bees.util.BirchDataComponents;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -30,11 +31,12 @@ public class ABalladofBirchandBees
         HotBrickWatcher.init(Config.SERVER.BrickCookTime.get());
 
         BirchBlocks.BLOCKS.register(modEventBus);
+        BirchDataComponents.DATA_COMPONENTS.register(modEventBus);
         BirchItems.ITEMS.register(modEventBus);
         BirchEffects.EFFECTS.register(modEventBus);
         BirchCreativeTabs.TABS.register(modEventBus);
         BirchEntities.ENTITIES.register(modEventBus);
-        BirchCriteriaRegistry.TRIGGERS.register(modEventBus);
+        BirchCriteriaRegistries.TRIGGERS.register(modEventBus);
 
         final DeferredRegister<MapCodec<? extends BiomeModifier>> biomeModifiers =
                 DeferredRegister.create(NeoForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, MOD_ID);

@@ -6,7 +6,7 @@ public class IllegalTrigger extends CustomTrigger {
     public IllegalTrigger(String id) {super(id);}
     @Override
     public void trigger(ServerPlayer player){
-        BirchCriteriaRegistry.ANYTHING_ILLEGAL.get().trigger(player);
+        BirchCriteriaRegistries.ANYTHING_ILLEGAL.get().trigger(player);
         this.trigger(player, (instance) -> true);
     }
 }
