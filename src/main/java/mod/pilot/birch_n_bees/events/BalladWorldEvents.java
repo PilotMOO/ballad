@@ -88,10 +88,10 @@ public class BalladWorldEvents {
         if (event.getItemStack().isEmpty() && bState.is(Blocks.BEE_NEST)){
             BeehiveBlockEntity hive = (BeehiveBlockEntity)level.getBlockEntity(bPos);
             int honeyCount;
-            if (hive != null && (honeyCount = bState.getValue(HONEY_LEVEL)) > 0){
+            if (hive != null && (honeyCount = bState.getValue(HONEY_LEVEL)) >= 4){
                 if (!hive.isSedated()) hive.emptyAllLivingFromHive(event.getEntity(), bState, BeehiveBlockEntity.BeeReleaseStatus.EMERGENCY);
                 level.setBlock(bPos, bState.setValue(HONEY_LEVEL, 0), 3);
-                Block.popResource(level, bPos, new ItemStack(Items.HONEYCOMB, (honeyCount + 1) / 3));
+                Block.popResource(level, bPos, new ItemStack(Items.HONEYCOMB, 1));
             }
         }
     }
@@ -319,9 +319,12 @@ public class BalladWorldEvents {
 
     @SubscribeEvent
     public static void mining(PlayerEvent.BreakSpeed event){
-        if (event.getState().is(Blocks.BIRCH_LOG)) event.setNewSpeed(event.getOriginalSpeed() / 2f);
+        BlockState bState = event.getState();
+        if (bState.is(Blocks.BIRCH_LOG) || bState.is(Blocks.STRIPPED_BIRCH_LOG)) {
+            event.setNewSpeed(event.getOriginalSpeed() / 2f);
+        }
         else if (!event.getEntity().getInventory().getSelectedItem()
-                .isCorrectToolForDrops(event.getState())){
+                .isCorrectToolForDrops(bState)){
             float div = 10f;
             event.setNewSpeed(event.getOriginalSpeed() / div);
         } else event.setNewSpeed(event.getOriginalSpeed() / 5);

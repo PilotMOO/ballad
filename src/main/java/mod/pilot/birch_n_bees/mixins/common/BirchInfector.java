@@ -23,7 +23,7 @@ public abstract class BirchInfector {
     @Unique private static double ballad$birchChance = -1d;
     @Unique private static double ballad$getBirchChance(){
         if (!ABalladofBirchandBees.configLoaded) return -1d;
-        if (ballad$birchChance == -1) ballad$birchChance = Config.SERVER.BirchChance.get();
+        if (ballad$birchChance == -1) ballad$birchChance = Config.SERVER.birchChance.get();
         return ballad$birchChance;
     }
 

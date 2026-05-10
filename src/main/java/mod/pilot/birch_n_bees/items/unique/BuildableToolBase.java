@@ -6,6 +6,7 @@ import mod.pilot.birch_n_bees.util.BirchDataComponents;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -86,19 +87,23 @@ public abstract class BuildableToolBase extends Item {
         if (toolHead.isValid()){
             int damage = stack.getDamageValue();
             stack.setDamageValue(damage - 1);
-            if (damage % 20 == 0) livingEntity.playSound(SoundEvents.ITEM_FRAME_ADD_ITEM, 0.5f, 0.5f);
+            if (damage % 20 == 19) livingEntity.playSound(SoundEvents.ITEM_FRAME_ADD_ITEM, 1f, 0.5f);
         } else trySelectHead(livingEntity, stack);
     }
     public void trySelectHead(LivingEntity user, ItemStack stack) {
         ItemStack offhand = user.getOffhandItem();
-        ToolHead toolHead;
-        if (offhand.isEmpty() && user instanceof Player p)
-            messagePlayer(p, "birch_n_bees.message.empty_offhand");
-        else if ((toolHead = findTool(offhand)).isValid()){
-            setHead(stack, toolHead);
-            offhand.shrink(1);
-            user.playSound(SoundEvents.ANVIL_LAND, 1.0F, 1.5F);
-        } else if (user instanceof Player p) messagePlayer(p, "birch_n_bees.message.invalid_toolhead");
+        if (user.getMainHandItem().equals(stack)) {
+            ToolHead toolHead;
+            if (offhand.isEmpty() && user instanceof Player p)
+                messagePlayer(p, "birch_n_bees.message.empty_offhand");
+            else if ((toolHead = findTool(offhand)).isValid()) {
+                setHead(stack, toolHead);
+                offhand.shrink(1);
+                user.playSound(SoundEvents.ANVIL_LAND, 1.0F, 1.5F);
+            } else if (user instanceof Player p) messagePlayer(p, "birch_n_bees.message.invalid_toolhead");
+        } else if (offhand.equals(stack) && user instanceof Player p) {
+            messagePlayer(p, "birch_n_bees.message.no_offhand");
+        }
     }
 
     @Override
@@ -106,7 +111,7 @@ public abstract class BuildableToolBase extends Item {
         ToolHead toolHead = getHead(stack);
         if (toolHead.isValid()) {
             livingEntity.playSound(SoundEvents.ITEM_PICKUP, 0.5f, 1.5f);
-            return toolHead.result();
+            return toolHead.result().copy();
         }
         return stack;
         /*else {
@@ -120,6 +125,15 @@ public abstract class BuildableToolBase extends Item {
     }
 
     @Override
+    public @NotNull Component getName(@NotNull ItemStack stack) {
+        ToolHead toolHead = getHead(stack);
+        if (toolHead.isValid()){
+            return Component.translatable("item.birch_n_bees.buildable_tool.incomplete").append(toolHead.result().getHoverName());
+        }
+        return super.getName(stack);
+    }
+
+    @Override
     public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context,
                                 @NotNull TooltipDisplay tooltipDisplay, @NotNull Consumer<Component> tooltipAdder,
                                 @NotNull TooltipFlag flag) {
@@ -128,15 +142,24 @@ public abstract class BuildableToolBase extends Item {
             tooltipAdder.accept(Component.translatable("item.birch_n_bees.buildable_tool.tool_head")
                     .append(toolHead.head.getName()));
             tooltipAdder.accept(Component.translatable("item.birch_n_bees.buildable_tool.will_build")
-                    .append(toolHead.result.getDisplayName()));
-        } else tooltipAdder.accept(Component.translatable("item.birch_n_bees.buildable_tool.no_head"));
+                    .append(toolHead.result.getHoverName()));
+        } else {
+            tooltipAdder.accept(Component.translatable("item.birch_n_bees.buildable_tool.no_head"));
+            tooltipAdder.accept(Component.translatable("item.birch_n_bees.buildable_tool.can_build_line1"));
+            MutableComponent line2 = Component.translatable("item.birch_n_bees.buildable_tool.can_build_line2");
+            for (ToolHead vHead : validHeads) {
+                Component head = vHead.head.getName();
+                Component result = vHead.result.getHoverName();
+                tooltipAdder.accept(result.copy().append(line2).append(head).withColor(11184810));
+            }
+        }
         super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
     }
 
     public record ToolHead(Item head, ItemStack result){
-
-        public static ToolHead invalid(){return new ToolHead(null, ItemStack.EMPTY);}
-        public boolean isValid() { return head != null; }
+        public static final ToolHead INVALID = new ToolHead(null, ItemStack.EMPTY);
+        public static ToolHead invalid(){return INVALID;}
+        public boolean isValid() { return head != null && !result.isEmpty(); }
 
         public static final Codec<ToolHead> CODEC = RecordCodecBuilder.create(
                 (toolHead) -> toolHead.group(

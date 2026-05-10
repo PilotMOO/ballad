@@ -1,5 +1,5 @@
 {
-  "parent": "birch_n_bees:story/axe_todo_done",
+  "parent": "birch_n_bees:story/tool_base_intro",
   "criteria": {
     "items": {
       "trigger": "minecraft:inventory_changed",

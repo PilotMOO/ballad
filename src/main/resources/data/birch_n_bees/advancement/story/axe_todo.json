@@ -14,7 +14,7 @@
           {
             "items": "minecraft:honeycomb",
             "count":{
-              "min": 2
+              "min": 1
             }
           }
         ]

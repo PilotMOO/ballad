@@ -1,5 +1,5 @@
 {
-  "parent": "birch_n_bees:story/birching_table",
+  "parent": "birch_n_bees:story/tool_base_intro",
   "criteria": {
     "items": {
       "trigger": "minecraft:inventory_changed",

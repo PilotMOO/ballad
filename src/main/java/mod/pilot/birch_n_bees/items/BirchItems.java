@@ -124,7 +124,10 @@ public class BirchItems {
     public static final DeferredItem<Item> DEEPSLATE_PEBBLE = ITEMS.registerItem("deepslate_pebble", Item::new);
 
 
+
+    public static final DeferredItem<Item> HONEY_AXE_HEAD = ITEMS.registerItem("honey_axe_head", Item::new);
     public static final DeferredItem<HoneyAxeItem> HONEY_AXE = ITEMS.registerItem("honey_axe", HoneyAxeItem::new);
+    public static final DeferredItem<Item> HONEY_SHOVEL_HEAD = ITEMS.registerItem("honey_shovel_head", Item::new);
     public static final DeferredItem<HoneyShovelItem> HONEY_SHOVEL = ITEMS.registerItem("honey_shovel", HoneyShovelItem::new);
 
     public static final DeferredItem<CrudeCobblestonePickaxeItem> CRUDE_COBBLESTONE_PICKAXE = ITEMS.registerItem(
@@ -155,7 +158,15 @@ public class BirchItems {
 
     public static final DeferredItem<TestingToolBase> TESTING_TOOL_BASE = ITEMS.registerItem("buildable_tool",
             TestingToolBase::new);
-
+    public static final DeferredItem<BuildableToolBase> HONEY_TOOL_BASE = ITEMS.registerItem("honey_tool_base",
+            (p) -> new BuildableToolBase(p, 400){
+                @Override
+                public void fillValidHeads() {
+                    validHeads = new ToolHead[2];
+                    validHeads[0] = new ToolHead(HONEY_AXE_HEAD.get(), new ItemStack(HONEY_AXE.get()));
+                    validHeads[1] = new ToolHead(HONEY_SHOVEL_HEAD.get(), new ItemStack(HONEY_SHOVEL.get()));
+                }
+            });
 /*    public static <I extends BuildableToolBase> DeferredItem<I> registerBuildableTool(String name, Supplier<I> supplier) {
         I tool = supplier.get();
         tool.fillValidHeads();

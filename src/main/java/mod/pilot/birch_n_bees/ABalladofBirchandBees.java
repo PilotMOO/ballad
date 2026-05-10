@@ -28,7 +28,7 @@ public class ABalladofBirchandBees
     {
         modContainer.registerConfig(ModConfig.Type.STARTUP, Config.SERVER_SPEC, "ballad_config.toml");
         configLoaded = true;
-        HotBrickWatcher.init(Config.SERVER.BrickCookTime.get());
+        HotBrickWatcher.init(Config.SERVER.brickCookTime.get());
 
         BirchBlocks.BLOCKS.register(modEventBus);
         BirchDataComponents.DATA_COMPONENTS.register(modEventBus);

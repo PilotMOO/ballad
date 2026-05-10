@@ -37,8 +37,11 @@ public class BirchCreativeTabs {
 
                         register.accept(BirchItems.STICKY_PLANKS.get());
 
+                        register.accept(BirchItems.HONEY_TOOL_BASE.get());
                         register.accept(BirchItems.HONEY_AXE.get());
                         register.accept(BirchItems.HONEY_SHOVEL.get());
+                        register.accept(BirchItems.HONEY_AXE_HEAD.get());
+                        register.accept(BirchItems.HONEY_SHOVEL_HEAD.get());
                         register.accept(BirchItems.CRUDE_COBBLESTONE_PICKAXE.get());
                         register.accept(BirchItems.CRUDE_COBBLESTONE_AXE.get());
                         register.accept(BirchItems.CRUDE_COBBLESTONE_SWORD.get());
