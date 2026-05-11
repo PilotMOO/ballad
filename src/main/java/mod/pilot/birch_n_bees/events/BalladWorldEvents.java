@@ -87,11 +87,10 @@ public class BalladWorldEvents {
         BlockState bState = level.getBlockState(bPos);
         if (event.getItemStack().isEmpty() && bState.is(Blocks.BEE_NEST)){
             BeehiveBlockEntity hive = (BeehiveBlockEntity)level.getBlockEntity(bPos);
-            int honeyCount;
-            if (hive != null && (honeyCount = bState.getValue(HONEY_LEVEL)) >= 4){
+            if (hive != null && bState.getValue(HONEY_LEVEL) >= 4){
                 if (!hive.isSedated()) hive.emptyAllLivingFromHive(event.getEntity(), bState, BeehiveBlockEntity.BeeReleaseStatus.EMERGENCY);
                 level.setBlock(bPos, bState.setValue(HONEY_LEVEL, 0), 3);
-                Block.popResource(level, bPos, new ItemStack(Items.HONEYCOMB, 1));
+                Block.popResource(level, bPos, new ItemStack(Items.HONEYCOMB));
             }
         }
     }
