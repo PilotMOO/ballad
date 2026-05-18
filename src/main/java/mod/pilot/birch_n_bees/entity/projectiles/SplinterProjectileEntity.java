@@ -115,6 +115,7 @@ public class SplinterProjectileEntity extends AbstractArrow implements ItemSuppl
             if (iFrame != -1) entity.invulnerableTime = iFrame;
 
             this.playSound(SoundEvents.ARROW_HIT, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+            this.discard();
         } else {
             this.deflect(ProjectileDeflection.REVERSE, entity, this.getOwner(), false);
             this.setDeltaMovement(this.getDeltaMovement().scale(0.2));
@@ -134,10 +135,8 @@ public class SplinterProjectileEntity extends AbstractArrow implements ItemSuppl
     @Override
     public void tick() {
         super.tick();
-        int life = 3000;
-        if (getDeltaMovement().lengthSqr() < 1.0E-7) {
-            life /= allowPickup() ? 5 : 10;
-        }
+        int life = 1500;
+        if (getDeltaMovement().lengthSqr() < 1.0E-7 && !allowPickup()) life /= 10;
         if (tickCount >= life) discard();
     }
 }

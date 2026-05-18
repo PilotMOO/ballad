@@ -31,6 +31,11 @@ public class BirchBiomeModification implements BiomeModifier {
             builder.getMobSpawnSettings()
                     .getSpawner(MobCategory.MONSTER)
                     .add(new MobSpawnSettings.SpawnerData(BirchEntities.SPLINTERING.get(), 1, 3), 200);
+/*
+            builder.getMobSpawnSettings()
+                    .getSpawner(MobCategory.MONSTER)
+                    .add(new MobSpawnSettings.SpawnerData(BirchEntities.NESTHEAD.get(), 1, 2), 150);
+*/
         }
     }
 }

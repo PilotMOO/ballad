@@ -53,6 +53,9 @@ public class BirchCreativeTabs {
                         register.accept(BirchItems.WILDFLOWER_POPPER);
 
                         register.accept(BirchItems.THREE_SUGARCANE);
+
+                        register.accept(BirchItems.SPLINTERING_SPAWN);
+                        register.accept(BirchItems.NESTHEAD_SPAWN);
                     })
                     .build());
 }

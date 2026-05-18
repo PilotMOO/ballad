@@ -66,15 +66,21 @@
 
   "block.birch_n_bees.sticky_planks": "Sticky Planks",
 
+  "block.birch_n_bees.prepared_sugarcane": "Prepared Sugar Cane",
+
   "block.birch_n_bees.cobbled_andesite": "Cobbled Andesite",
   "block.birch_n_bees.cobbled_diorite": "Cobbled Diorite",
   "block.birch_n_bees.cobbled_granite": "Cobbled Granite",
   "block.birch_n_bees.cobbled_tuff": "Cobbled Tuff",
 
+  "item.birch_n_bees.splintering_spawn": "Spawn Splintering",
+  "item.birch_n_bees.nesthead_spawn": "Spawn Nesthead",
+
   "entity.birch_n_bees.splinter": "Splinter",
   "entity.birch_n_bees.wildflower_popper": "Wildflower Popper",
 
   "entity.birch_n_bees.splintering": "Splintering",
+  "entity.birch_n_bees.nesthead": "Nesthead",
 
   "birch_n_bees.creative_tab.ballad_tab": "§6A Ballad of Birch and Bees",
 

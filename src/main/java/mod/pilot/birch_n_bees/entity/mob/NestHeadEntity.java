@@ -1,17 +1,23 @@
 package mod.pilot.birch_n_bees.entity.mob;
 
+import mod.pilot.birch_n_bees.data.BirchDataHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -46,11 +52,11 @@ public class NestHeadEntity extends Zombie implements GeoEntity {
 
     public static AttributeSupplier.@NotNull Builder createAttributes(){
         return NestHeadEntity.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, 22D)
+                .add(Attributes.MAX_HEALTH, 24D)
                 .add(Attributes.ARMOR, 8)
                 .add(Attributes.FOLLOW_RANGE, 32)
-                .add(Attributes.MOVEMENT_SPEED, 0.25D)
-                .add(Attributes.ATTACK_DAMAGE, 6D)
+                .add(Attributes.MOVEMENT_SPEED, 0.2D)
+                .add(Attributes.ATTACK_DAMAGE, 4D)
                 .add(Attributes.ATTACK_KNOCKBACK, 0.1D)
                 .add(Attributes.ATTACK_SPEED, 2D);
     }
@@ -70,7 +76,7 @@ public class NestHeadEntity extends Zombie implements GeoEntity {
     }
     public void decBees() {
         int bees = getStoredBees();
-        if (--bees < 0) setStoredBees(bees);
+        if (bees-- > 0) setStoredBees(bees);
     }
 
     public int getMaxBees(){return entityData.get(MAX_BEES);}
@@ -112,6 +118,47 @@ public class NestHeadEntity extends Zombie implements GeoEntity {
             this.level().broadcastEntityEvent(this, (byte)60);
             this.remove(RemovalReason.KILLED);
         }
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        LivingEntity target;
+        if (!(level() instanceof ServerLevel server) || (target = getTarget()) == null) return;
+        if (tickCount % 100 == 0 && random.nextBoolean() && getStoredBees() > 0 && distanceTo(target) < 12) {
+            decBees();
+            BirchDataHelper.popBees(server, getEyePosition(), 1, target);
+            playSound(SoundEvents.BEEHIVE_EXIT, 1f, .75f);
+        }
+    }
+
+    @Override
+    public boolean hurtServer(ServerLevel server, DamageSource damageSource, float amount) {
+        boolean flag = super.hurtServer(server, damageSource, amount);
+        LivingEntity target;
+        if (amount > 3 && getStoredBees() > 0 && (target = getTarget()) != null){
+            if (amount > target.getMaxHealth() / 4 || random.nextDouble() < 0.25d) {
+                int beeCount = Math.min(getStoredBees(), random.nextInt(4));
+                BirchDataHelper.popBees(server, getEyePosition(), beeCount, target);
+                setStoredBees(getStoredBees() - beeCount);
+                playSound(SoundEvents.BEEHIVE_EXIT, 1f, .75f);
+            }
+        }
+        return flag;
+    }
+
+    @Override
+    public boolean doHurtTarget(@NotNull ServerLevel server, @NotNull Entity target) {
+        boolean flag = super.doHurtTarget(server, target);
+        if (flag && target instanceof LivingEntity living) {
+            if (!living.hasEffect(MobEffects.SLOWNESS)) living.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 40, 1));
+        }
+        return flag;
+    }
+
+    @Override
+    protected void randomizeReinforcementsChance() {
+        //I don't want to program reinforcement mechanics but if I leave this method untouched it will cause an error
     }
 
     public boolean isMoving(){
@@ -237,10 +284,10 @@ public class NestHeadEntity extends Zombie implements GeoEntity {
             }
 
             if (target != null){
-                if (entity.distanceTo(target) < 2.5d){
+                if (entity.distanceTo(target) < 2d){
                     entity.incBees();
                     target.discard();
-                    entity.level().playLocalSound(entity, SoundEvents.BEEHIVE_EXIT, SoundSource.HOSTILE, 1f, 1.25f);
+                    entity.level().playSound(entity, entity, SoundEvents.BEEHIVE_ENTER, SoundSource.HOSTILE, 1f, 1.25f);
                     stop();
                 } else if (nav.isDone()) nav.moveTo(target, 1d);
             } else if (nest != null){
@@ -258,7 +305,7 @@ public class NestHeadEntity extends Zombie implements GeoEntity {
                                 entity.incBees();
                                 collectFlag = true;
                             }
-                            if (collectFlag) level.playLocalSound(nest, SoundEvents.BEEHIVE_EXIT, SoundSource.HOSTILE, 1f, 1.25f, true);
+                            if (collectFlag) level.playSound(entity, nest, SoundEvents.BEEHIVE_ENTER, SoundSource.HOSTILE, 1f, 1.25f);
                             stop();
                         }
                     }

@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "facing=east, progress=0": {
+      "model": "birch_n_bees:block/prepared_sugarcane",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "birch_n_bees:block/prepared_sugarcane"
+    },
+    "facing=south": {
+      "model": "birch_n_bees:block/prepared_sugarcane",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "birch_n_bees:block/prepared_sugarcane",
+      "y": 270
+    },
+    "": {
+      "model": "birch_n_bees:block/prepared_sugarcane"
+    }
+  }
+}

@@ -1,6 +1,7 @@
 package mod.pilot.birch_n_bees.entity;
 
 import mod.pilot.birch_n_bees.ABalladofBirchandBees;
+import mod.pilot.birch_n_bees.entity.mob.NestHeadEntity;
 import mod.pilot.birch_n_bees.entity.mob.SplinteringEntity;
 import mod.pilot.birch_n_bees.entity.projectiles.SplinterProjectileEntity;
 import mod.pilot.birch_n_bees.entity.projectiles.WildflowerPopperProjectileEntity;
@@ -25,4 +26,7 @@ public class BirchEntities {
     public static final DeferredHolder<EntityType<?>, EntityType<SplinteringEntity>> SPLINTERING =
             ENTITIES.registerEntityType("splintering", SplinteringEntity::new, MobCategory.MONSTER,
                     (builder -> builder.sized(.6f, 2.25f)));
+    public static final DeferredHolder<EntityType<?>, EntityType<NestHeadEntity>> NESTHEAD =
+            ENTITIES.registerEntityType("nesthead", NestHeadEntity::new, MobCategory.MONSTER,
+                    (builder -> builder.sized(.75f, 2.0f)));
 }

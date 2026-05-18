@@ -2,6 +2,7 @@ package mod.pilot.birch_n_bees.items;
 
 import mod.pilot.birch_n_bees.ABalladofBirchandBees;
 import mod.pilot.birch_n_bees.blocks.BirchBlocks;
+import mod.pilot.birch_n_bees.entity.BirchEntities;
 import mod.pilot.birch_n_bees.items.unique.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -124,7 +125,6 @@ public class BirchItems {
     public static final DeferredItem<Item> DEEPSLATE_PEBBLE = ITEMS.registerItem("deepslate_pebble", Item::new);
 
 
-
     public static final DeferredItem<Item> HONEY_AXE_HEAD = ITEMS.registerItem("honey_axe_head", Item::new);
     public static final DeferredItem<HoneyAxeItem> HONEY_AXE = ITEMS.registerItem("honey_axe", HoneyAxeItem::new);
     public static final DeferredItem<Item> HONEY_SHOVEL_HEAD = ITEMS.registerItem("honey_shovel_head", Item::new);
@@ -151,6 +151,10 @@ public class BirchItems {
     public static final DeferredItem<BlockItem> COBBLED_GRANITE = ITEMS.registerSimpleBlockItem(BirchBlocks.COBBLED_GRANITE);
     public static final DeferredItem<BlockItem> COBBLED_TUFF = ITEMS.registerSimpleBlockItem(BirchBlocks.COBBLED_TUFF);
 
+    public static final DeferredItem<SpawnEggItem> SPLINTERING_SPAWN = ITEMS.registerItem("splintering_spawn",
+            (properties -> new SpawnEggItem(BirchEntities.SPLINTERING.get(), properties)));
+    public static final DeferredItem<SpawnEggItem> NESTHEAD_SPAWN = ITEMS.registerItem("nesthead_spawn",
+            (properties -> new SpawnEggItem(BirchEntities.NESTHEAD.get(), properties)));
 
     public static final DeferredItem<Item> CLAYFLINT = ITEMS.registerItem("clayflint", (Item::new));
     public static final DeferredItem<Item> MOON = ITEMS.registerItem("moon", (Item::new));
