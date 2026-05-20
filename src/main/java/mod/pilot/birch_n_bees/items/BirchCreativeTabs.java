@@ -37,6 +37,8 @@ public class BirchCreativeTabs {
 
                         register.accept(BirchItems.STICKY_PLANKS.get());
 
+                        register.accept(BirchItems.PREPARED_SUGARCANE.get());
+
                         register.accept(BirchItems.HONEY_TOOL_BASE.get());
                         register.accept(BirchItems.HONEY_AXE.get());
                         register.accept(BirchItems.HONEY_SHOVEL.get());

@@ -151,6 +151,8 @@ public class BirchItems {
     public static final DeferredItem<BlockItem> COBBLED_GRANITE = ITEMS.registerSimpleBlockItem(BirchBlocks.COBBLED_GRANITE);
     public static final DeferredItem<BlockItem> COBBLED_TUFF = ITEMS.registerSimpleBlockItem(BirchBlocks.COBBLED_TUFF);
 
+    public static final DeferredItem<BlockItem> PREPARED_SUGARCANE = ITEMS.registerSimpleBlockItem(BirchBlocks.PREPARED_SUGARCANE);
+
     public static final DeferredItem<SpawnEggItem> SPLINTERING_SPAWN = ITEMS.registerItem("splintering_spawn",
             (properties -> new SpawnEggItem(BirchEntities.SPLINTERING.get(), properties)));
     public static final DeferredItem<SpawnEggItem> NESTHEAD_SPAWN = ITEMS.registerItem("nesthead_spawn",

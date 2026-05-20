@@ -1,22 +1,58 @@
 {
   "variants": {
-    "facing=east, progress=0": {
-      "model": "birch_n_bees:block/prepared_sugarcane",
+    "facing=east, v_progress=0": {
+      "model": "birch_n_bees:block/prepared_sugarcane_stage0",
       "y": 90
     },
-    "facing=north": {
-      "model": "birch_n_bees:block/prepared_sugarcane"
+    "facing=north, v_progress=0": {
+      "model": "birch_n_bees:block/prepared_sugarcane_stage0"
     },
-    "facing=south": {
-      "model": "birch_n_bees:block/prepared_sugarcane",
+    "facing=south, v_progress=0": {
+      "model": "birch_n_bees:block/prepared_sugarcane_stage0",
       "y": 180
     },
-    "facing=west": {
-      "model": "birch_n_bees:block/prepared_sugarcane",
+    "facing=west, v_progress=0": {
+      "model": "birch_n_bees:block/prepared_sugarcane_stage0",
       "y": 270
     },
-    "": {
-      "model": "birch_n_bees:block/prepared_sugarcane"
+    "v_progress=0": {
+      "model": "birch_n_bees:block/prepared_sugarcane_stage0"
+    },
+    "facing=east, v_progress=1": {
+      "model": "birch_n_bees:block/prepared_sugarcane_stage1",
+      "y": 90
+    },
+    "facing=north, v_progress=1": {
+      "model": "birch_n_bees:block/prepared_sugarcane_stage1"
+    },
+    "facing=south, v_progress=1": {
+      "model": "birch_n_bees:block/prepared_sugarcane_stage1",
+      "y": 180
+    },
+    "facing=west, v_progress=1": {
+      "model": "birch_n_bees:block/prepared_sugarcane_stage1",
+      "y": 270
+    },
+    "v_progress=1": {
+      "model": "birch_n_bees:block/prepared_sugarcane_stage1"
+    },
+    "facing=east, v_progress=2": {
+      "model": "birch_n_bees:block/prepared_sugarcane_stage2",
+      "y": 90
+    },
+    "facing=north, v_progress=2": {
+      "model": "birch_n_bees:block/prepared_sugarcane_stage2"
+    },
+    "facing=south, v_progress=2": {
+      "model": "birch_n_bees:block/prepared_sugarcane_stage2",
+      "y": 180
+    },
+    "facing=west, v_progress=2": {
+      "model": "birch_n_bees:block/prepared_sugarcane_stage2",
+      "y": 270
+    },
+    "v_progress=2": {
+      "model": "birch_n_bees:block/prepared_sugarcane_stage2"
     }
   }
 }

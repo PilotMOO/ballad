@@ -1,6 +1,7 @@
 package mod.pilot.birch_n_bees.blocks;
 
 import mod.pilot.birch_n_bees.ABalladofBirchandBees;
+import mod.pilot.birch_n_bees.blocks.unique.PreparedSugarCaneBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -21,4 +22,7 @@ public class BirchBlocks {
             BlockBehaviour.Properties.ofFullCopy(Blocks.GRANITE));
     public static final DeferredBlock<Block> COBBLED_TUFF = BLOCKS.registerSimpleBlock("cobbled_tuff",
             BlockBehaviour.Properties.ofFullCopy(Blocks.TUFF));
+
+    public static final DeferredBlock<PreparedSugarCaneBlock> PREPARED_SUGARCANE = BLOCKS.registerBlock("prepared_sugarcane",
+            PreparedSugarCaneBlock::new);
 }
