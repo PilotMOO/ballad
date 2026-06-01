@@ -17,6 +17,8 @@
   "item.birch_n_bees.three_sugarcane": "Three (3) Sugarcane",
   "item.birch_n_bees.three_sugarcane.description": "§7It's three sugarcane. \nIn a row. \nWhat? did you really think it would be that easy to get paper? \n\nidiot.",
 
+  "item.birch_n_bees.raw_sugar": "Raw Sugar",
+  "item.birch_n_bees.raw_sugar.description": "§7An unrefined, sticky mass of raw cane sugar. The drying process was uneven and poor; half of it by weight is residual water, not the actual sugar crystals...",
 
   "item.birch_n_bees.clay_brick": "§7Clay Brick",
   "item.birch_n_bees.clay_brick.description": "§7Clay shaped into the form of a brick. It's too wet to be of use, §6maybe try tempering it by putting it near§c something hot...?",
@@ -38,7 +40,7 @@
   "item.birch_n_bees.buildable_tool.no_head": "§4No tool head!",
   "item.birch_n_bees.buildable_tool.tool_head": "§7Tool head: ",
   "item.birch_n_bees.buildable_tool.will_build": "§7Building: ",
-  "item.birch_n_bees.buildable_tool.can_build_line1": "§6Can build:",
+  "item.birch_n_bees.buildable_tool.can_build_line1": "§9Can build:",
   "item.birch_n_bees.buildable_tool.can_build_line2": " from ",
 
   "item.birch_n_bees.buildable_tool.incomplete": "Incomplete ",
@@ -59,7 +61,7 @@
   "item.birch_n_bees.crude_cobblestone_sword": "§7Crude Cobblestone Sword",
   "item.birch_n_bees.crude_cobblestone_sword.description": "§7...really puts the \"improvised\" in \"improvised weaponry\". I mean, if it's not broken, don't fix it...?",
   "item.birch_n_bees.flint_knife": "§7Flint Dagger",
-  "item.birch_n_bees.flint_knife.description": "§7A flimsy knife not-so expertly crafted out of a chunk of flint.\n\nYeah it's pretty unremarkable.",
+  "item.birch_n_bees.flint_knife.description": "§7A flimsy knife not-so expertly crafted out of a chunk of flint.\nIt's just sharp enough §6to cut things...",
 
   "item.birch_n_bees.birch_shield": "Birch Shield",
   "item.birch_n_bees.birch_shield.description": "§7A glorified piece of birch wood refashioned into something that could be mistaken as a shield",
@@ -89,6 +91,9 @@
   "birch_n_bees.message.empty_offhand": "§7You need a tool head to build a tool!",
   "birch_n_bees.message.no_offhand": "§7Tool head in offhand, tool base in main hand",
   "birch_n_bees.message.invalid_toolhead": "§7Wrong tool head!",
+
+  "birch_n_bees.message.not_cuttable": "§7You can't cut this...",
+  "birch_n_bees.message.nothing_to_cut": "§7You can't cut nothing!",
 
   "birch_n_bees.message.contraband": "§l§4[CONTRABAND SPOTTED: REQUESTING TERMINATION]",
   "birch_n_bees.message.unlawful_animal_killing": "§4SLAUGHTER OF ANIMALS BY AN IMPURE IS STRICTLY FORBIDDEN.",
@@ -121,8 +126,7 @@
   "advancements.ballad.honey_axe_get.description": "§7Craft a §6Honey Axe! §7Now you can probably go mine a tree without dying.",
   "advancements.ballad.honey_shovel_get.title": "Brand new tools!",
   "advancements.ballad.honey_shovel_get.description": "§7It is possible to craft a few more tools using §6Honey Tool Bases§7... Most notably, you'll want to craft yourself a §6Honey Shovel§7 to gather some clay and flint.",
-  "advancements.ballad.digging_earth.title": "Using your shovel",
-  "advancements.ballad.digging_earth.description": "§7You'll need to find some clay and gravel. Dig it up with your shovel to get some clay and flint.\n§5Clay and flint will only drop if broken with a shovel.\n§7They also both drop less and less frequently in order to annoy you.",
+
   "advancements.ballad.splinters.title": "...",
   "advancements.ballad.splinters.description": "§7Life isn't fair, huh? Logs just break into splinters when broken. They're probably still useful. Go grab a few more.\nP.S. you can craft them into sticks if you don't want to punch more leaves",
   "advancements.ballad.stripping_bark.title": "Don't bark up the wrong tree",
@@ -137,6 +141,14 @@
   "advancements.ballad.birching_table.description": "§7You could be excused if you assumed this was a §l§oCrafting Table.§r§7 \nWell, I wont excuse you, but someone else could.\n\nThis, my friend, is a §l§oBIRCHING Table.§r§7",
   "advancements.ballad.snap_crackle_pop.title": "Snap, Crackle, Pop!",
   "advancements.ballad.snap_crackle_pop.description": "§7To reach the stone age, you need to craft a cute little explosive known as a §6Wildflower Popper§7. It requires gunpowder and string, however...\n\nI wouldn't recommend crafting a wooden pickaxe, by the way.",
+
+  "advancements.ballad.digging_earth.title": "Using your shovel",
+  "advancements.ballad.digging_earth.description": "§7You'll need to find some clay and gravel. Dig it up with your shovel to get some clay and flint.\n§5Clay and flint will only drop if broken with a shovel.\n§7They also both drop less and less frequently in order to annoy you.",
+  "advancements.ballad.sharpest_tool.title": "Not the sharpest tool in the shed...",
+  "advancements.ballad.sharpest_tool.description": "§7Craft yourself a §lFlint Knife! §7It's rather dull, but might be §6sharp enough to cut through reeds...",
+  "advancements.ballad.reeds_of_destony.title": "Reeds of Destiny",
+  "advancements.ballad.reeds_of_destony.description": "§7Sugar Cane can only be gathered with knives or other sharp tools. You'll need to gather a few in order to progress",
+
 
   "advancements.illegal.root.title": "§4Illegal actions",
   "advancements.illegal.root.description": "Some actions have been deemed ILLEGAL and against the LAW to commit! This page details any crimes you're guilty of.",

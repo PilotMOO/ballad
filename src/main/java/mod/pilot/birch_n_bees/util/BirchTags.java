@@ -29,5 +29,7 @@ public class BirchTags {
         public static final TagKey<Item> COBBLE_TIER_1 = tag("cobble_tier_1");
         public static final TagKey<Item> COBBLE_TIER_2 = tag("cobble_tier_2");
         public static final TagKey<Item> COBBLE_TIER_3 = tag("cobble_tier_3");
+
+        public static final TagKey<Item> HARVEST_CANE = tag("harvest_cane");
     }
 }

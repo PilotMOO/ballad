@@ -152,6 +152,16 @@ public class BirchItems {
     public static final DeferredItem<BlockItem> COBBLED_TUFF = ITEMS.registerSimpleBlockItem(BirchBlocks.COBBLED_TUFF);
 
     public static final DeferredItem<BlockItem> PREPARED_SUGARCANE = ITEMS.registerSimpleBlockItem(BirchBlocks.PREPARED_SUGARCANE);
+    public static final DeferredItem<Item> RAW_SUGAR = ITEMS.registerItem("raw_sugar",
+            (properties) -> new Item(properties){
+                @Override
+                public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context,
+                                            @NotNull TooltipDisplay tooltipDisplay, @NotNull Consumer<Component> tooltipAdder,
+                                            @NotNull TooltipFlag flag) {
+                    tooltipAdder.accept(Component.translatable("item.birch_n_bees.raw_sugar.description"));
+                    super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
+                }
+            });
 
     public static final DeferredItem<SpawnEggItem> SPLINTERING_SPAWN = ITEMS.registerItem("splintering_spawn",
             (properties -> new SpawnEggItem(BirchEntities.SPLINTERING.get(), properties)));
@@ -173,9 +183,4 @@ public class BirchItems {
                     validHeads[1] = new ToolHead(HONEY_SHOVEL_HEAD.get(), new ItemStack(HONEY_SHOVEL.get()));
                 }
             });
-/*    public static <I extends BuildableToolBase> DeferredItem<I> registerBuildableTool(String name, Supplier<I> supplier) {
-        I tool = supplier.get();
-        tool.fillValidHeads();
-        return ITEMS.registerItem(name, (properties)->tool);
-    }*/
 }

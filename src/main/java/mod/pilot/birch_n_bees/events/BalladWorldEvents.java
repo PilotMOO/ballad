@@ -324,8 +324,7 @@ public class BalladWorldEvents {
         }
         else if (!event.getEntity().getInventory().getSelectedItem()
                 .isCorrectToolForDrops(bState)){
-            float div = 10f;
-            event.setNewSpeed(event.getOriginalSpeed() / div);
+            event.setNewSpeed(event.getOriginalSpeed() / 10f);
         } else event.setNewSpeed(event.getOriginalSpeed() / 5);
     }
 }
