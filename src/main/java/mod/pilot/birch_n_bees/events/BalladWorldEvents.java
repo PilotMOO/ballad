@@ -5,6 +5,8 @@ import mod.pilot.birch_n_bees.achievements.BirchCriteriaRegistries;
 import mod.pilot.birch_n_bees.blocks.BirchBlocks;
 import mod.pilot.birch_n_bees.data.BirchDataHelper;
 import mod.pilot.birch_n_bees.effects.BirchEffects;
+import mod.pilot.birch_n_bees.entity.ai.HostileFishGoal;
+import mod.pilot.birch_n_bees.entity.ai.HostileMeleeGoal;
 import mod.pilot.birch_n_bees.items.BirchItems;
 import mod.pilot.birch_n_bees.util.BirchTags;
 import net.minecraft.core.BlockPos;
@@ -19,11 +21,15 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bee;
+import net.minecraft.world.entity.animal.Salmon;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -51,16 +57,26 @@ import org.jetbrains.annotations.Nullable;
 import oshi.util.tuples.Pair;
 
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 import static net.minecraft.world.level.block.BeehiveBlock.HONEY_LEVEL;
 
 @EventBusSubscriber(modid = ABalladofBirchandBees.MOD_ID)
 public class BalladWorldEvents {
     @SubscribeEvent
-    public static void beeSpawn(EntityJoinLevelEvent event){
-        if (event.getEntity() instanceof Bee bee){
-            bee.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(bee, Player.class, true));
+    public static void injectEntityAI(EntityJoinLevelEvent event){
+        Entity entity = event.getEntity();
+        if (entity instanceof LivingEntity){
+            if (entity instanceof Bee bee){
+                bee.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(bee, Player.class, true));
+            }
+            else if (entity instanceof Salmon salmon){
+                salmon.goalSelector.addGoal(1, new HostileFishGoal(salmon,
+                        2f, 48d, 0d, 0.3d, 20,
+                        HostileFishGoal.SALMON_HOSTILE_PREDICATE));
+            }
         }
+
     }
 
     @SubscribeEvent
@@ -321,6 +337,12 @@ public class BalladWorldEvents {
         BlockState bState = event.getState();
         if (bState.is(Blocks.BIRCH_LOG) || bState.is(Blocks.STRIPPED_BIRCH_LOG)) {
             event.setNewSpeed(event.getOriginalSpeed() / 2f);
+        } else if (bState.is(BirchTags.Blocks.WARN_IF_INCORRECT_TOOL_KNIFE)){
+            Player p = event.getEntity();
+            if (!p.isShiftKeyDown() && !p.getMainHandItem().is(BirchTags.Items.KNIFE_HARVESTING)){
+                event.setCanceled(true);
+                p.displayClientMessage(Component.translatable("birch_n_bees.message.incorrect_tool_knife_warning"), true);
+            }
         }
         else if (!event.getEntity().getInventory().getSelectedItem()
                 .isCorrectToolForDrops(bState)){

@@ -7,7 +7,7 @@
         {
           "condition": "minecraft:match_tool",
           "predicate": {
-            "items": "#birch_n_bees:harvest_cane"
+            "items": "#birch_n_bees:knife_harvesting"
           }
         },
         {

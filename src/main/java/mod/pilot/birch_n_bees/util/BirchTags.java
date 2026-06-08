@@ -13,6 +13,8 @@ public class BirchTags {
         private static TagKey<Block> tag(String name){
             return BlockTags.create(ResourceLocation.fromNamespaceAndPath(ABalladofBirchandBees.MOD_ID, name));
         }
+
+        public static final TagKey<Block> WARN_IF_INCORRECT_TOOL_KNIFE = tag("warn_if_incorrect_tool_knife");
     }
 
     public static class Items{
@@ -30,6 +32,6 @@ public class BirchTags {
         public static final TagKey<Item> COBBLE_TIER_2 = tag("cobble_tier_2");
         public static final TagKey<Item> COBBLE_TIER_3 = tag("cobble_tier_3");
 
-        public static final TagKey<Item> HARVEST_CANE = tag("harvest_cane");
+        public static final TagKey<Item> KNIFE_HARVESTING = tag("knife_harvesting");
     }
 }

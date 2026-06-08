@@ -1,15 +1,12 @@
 {
-  "parent": "birch_n_bees:story/axe_todo",
+  "parent": "birch_n_bees:story/reeds_of_destony",
   "criteria": {
-    "honey": {
+    "items": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": "minecraft:honeycomb",
-            "count":{
-              "min": 3
-            }
+            "items": "birch_n_bees:prepared_sugarcane"
           }
         ]
       }
@@ -17,23 +14,22 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.ballad.sweet_steps.description"
+      "translate": "advancements.ballad.sun_drying.description"
     },
     "icon": {
       "count": 1,
-      "id": "minecraft:honeycomb"
+      "id": "birch_n_bees:prepared_sugarcane"
     },
     "title": {
-      "translate": "advancements.ballad.sweet_steps.title"
+      "translate": "advancements.ballad.sun_drying.title"
     },
     "show_toast": true,
     "announce_to_chat": false,
-    "hidden": false,
-    "frame": "goal"
+    "hidden": false
   },
   "requirements": [
     [
-      "honey"
+      "items"
     ]
   ],
   "sends_telemetry_event": true

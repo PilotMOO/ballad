@@ -120,7 +120,7 @@ public abstract class BuildableToolBase extends Item {
         }*/
     }
 
-    private static void messagePlayer(Player player, String translatable){
+    static void messagePlayer(Player player, String translatable){
         player.displayClientMessage(Component.translatable(translatable), true);
     }
 
@@ -150,10 +150,9 @@ public abstract class BuildableToolBase extends Item {
             for (ToolHead vHead : validHeads) {
                 Component head = vHead.head.getName();
                 Component result = vHead.result.getHoverName();
-                tooltipAdder.accept(result.copy().append(line2).append(head).withColor(11184810));
+                tooltipAdder.accept(result.copy().append(line2.withColor(11184810)).append(head));
             }
         }
-        super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
     }
 
     public record ToolHead(Item head, ItemStack result){

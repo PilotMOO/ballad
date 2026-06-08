@@ -19,6 +19,9 @@ public class BirchCreativeTabs {
                         register.accept(BirchItems.BIRCH_BARK.get());
                         register.accept(BirchItems.SOGGY_BIRCH_BARK.get());
                         register.accept(BirchItems.WILDFLOWER_TWINE.get());
+                        register.accept(BirchItems.STRIPPED_WILDFLOWER_TWINE.get());
+                        register.accept(BirchItems.WILDTHREAD_BUILDABLE.get());
+                        register.accept(BirchItems.WILDTHREAD.get());
                         register.accept(BirchItems.SPLINTERS.get());
                         register.accept(BirchItems.BUNDLE_OF_SPLINTERS.get());
                         register.accept(BirchItems.CLAY_BRICK.get());
@@ -45,11 +48,17 @@ public class BirchCreativeTabs {
                         register.accept(BirchItems.HONEY_SHOVEL.get());
                         register.accept(BirchItems.HONEY_AXE_HEAD.get());
                         register.accept(BirchItems.HONEY_SHOVEL_HEAD.get());
+                        register.accept(BirchItems.FLINT_KNIFE.get());
+
+                        register.accept(BirchItems.WILDTHREAD_TOOL_BASE.get());
                         register.accept(BirchItems.CRUDE_COBBLESTONE_PICKAXE.get());
                         register.accept(BirchItems.CRUDE_COBBLESTONE_AXE.get());
                         register.accept(BirchItems.CRUDE_COBBLESTONE_SWORD.get());
-                        register.accept(BirchItems.FLINT_KNIFE.get());
                         register.accept(BirchItems.BIRCH_SHIELD.get());
+                        register.accept(BirchItems.CRUDE_COBBLESTONE_PICKAXE_HEAD.get());
+                        register.accept(BirchItems.CRUDE_COBBLESTONE_AXE_HEAD.get());
+                        register.accept(BirchItems.CRUDE_COBBLESTONE_SWORD_HEAD.get());
+                        register.accept(BirchItems.BIRCH_SHELL.get());
 
                         register.accept(BirchItems.WILDFLOWER_DRESSING);
                         register.accept(BirchItems.WILDFLOWER_BANDAGE);

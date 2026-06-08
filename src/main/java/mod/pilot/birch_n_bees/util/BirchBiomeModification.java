@@ -30,12 +30,10 @@ public class BirchBiomeModification implements BiomeModifier {
         if (biome.is(Tags.Biomes.IS_BIRCH_FOREST)) {
             builder.getMobSpawnSettings()
                     .getSpawner(MobCategory.MONSTER)
-                    .add(new MobSpawnSettings.SpawnerData(BirchEntities.SPLINTERING.get(), 1, 3), 200);
-/*
+                    .add(new MobSpawnSettings.SpawnerData(BirchEntities.SPLINTERING.get(), 1, 3), 150);
             builder.getMobSpawnSettings()
                     .getSpawner(MobCategory.MONSTER)
-                    .add(new MobSpawnSettings.SpawnerData(BirchEntities.NESTHEAD.get(), 1, 2), 150);
-*/
+                    .add(new MobSpawnSettings.SpawnerData(BirchEntities.NESTHEAD.get(), 1, 2), 175);
         }
     }
 }

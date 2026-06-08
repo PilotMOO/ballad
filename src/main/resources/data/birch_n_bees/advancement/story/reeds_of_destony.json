@@ -1,15 +1,12 @@
 {
-  "parent": "birch_n_bees:story/axe_todo",
+  "parent": "birch_n_bees:story/sharpest_tool",
   "criteria": {
-    "honey": {
+    "items": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": "minecraft:honeycomb",
-            "count":{
-              "min": 3
-            }
+            "items": "minecraft:sugar_cane"
           }
         ]
       }
@@ -17,23 +14,22 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.ballad.sweet_steps.description"
+      "translate": "advancements.ballad.reeds_of_destony.description"
     },
     "icon": {
       "count": 1,
-      "id": "minecraft:honeycomb"
+      "id": "minecraft:sugar_cane"
     },
     "title": {
-      "translate": "advancements.ballad.sweet_steps.title"
+      "translate": "advancements.ballad.reeds_of_destony.title"
     },
     "show_toast": true,
     "announce_to_chat": false,
-    "hidden": false,
-    "frame": "goal"
+    "hidden": false
   },
   "requirements": [
     [
-      "honey"
+      "items"
     ]
   ],
   "sends_telemetry_event": true

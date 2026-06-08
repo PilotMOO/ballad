@@ -6,7 +6,6 @@ import mod.pilot.birch_n_bees.entity.BirchEntities;
 import mod.pilot.birch_n_bees.items.unique.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,7 +17,6 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public class BirchItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(ABalladofBirchandBees.MOD_ID);
@@ -33,6 +31,30 @@ public class BirchItems {
                     super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
                 }
             });
+    public static final DeferredItem<Item> STRIPPED_WILDFLOWER_TWINE = ITEMS.registerItem("stripped_wildflower_twine",
+            (properties) -> new Item(properties){
+                @Override
+                public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context,
+                                            @NotNull TooltipDisplay tooltipDisplay, @NotNull Consumer<Component> tooltipAdder,
+                                            @NotNull TooltipFlag flag) {
+                    tooltipAdder.accept(Component.translatable("item.birch_n_bees.stripped_wildflower_twine.description"));
+                    super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
+                }
+            });
+    public static final DeferredItem<Item> WILDTHREAD = ITEMS.registerItem("wildthread",
+            (properties) -> new Item(properties){
+                @Override
+                public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context,
+                                            @NotNull TooltipDisplay tooltipDisplay, @NotNull Consumer<Component> tooltipAdder,
+                                            @NotNull TooltipFlag flag) {
+                    tooltipAdder.accept(Component.translatable("item.birch_n_bees.wildthread.description"));
+                    super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
+                }
+            });
+    public static final DeferredItem<WildthreadToolItem> WILDTHREAD_BUILDABLE = ITEMS.registerItem("wildthread_buildable",
+            WildthreadToolItem::new);
+
+
     public static final DeferredItem<Item> BIRCH_BARK = ITEMS.registerItem("birch_bark",
             (properties) -> new Item(properties){
                 @Override
@@ -132,12 +154,24 @@ public class BirchItems {
 
     public static final DeferredItem<CrudeCobblestonePickaxeItem> CRUDE_COBBLESTONE_PICKAXE = ITEMS.registerItem(
             "crude_cobblestone_pickaxe", CrudeCobblestonePickaxeItem::new);
+    public static final DeferredItem<Item> CRUDE_COBBLESTONE_PICKAXE_HEAD = ITEMS.registerItem("crude_cobblestone_pickaxe_head", Item::new);
     public static final DeferredItem<CrudeCobblestoneAxeItem> CRUDE_COBBLESTONE_AXE = ITEMS.registerItem(
             "crude_cobblestone_axe", CrudeCobblestoneAxeItem::new);
+    public static final DeferredItem<Item> CRUDE_COBBLESTONE_AXE_HEAD = ITEMS.registerItem("crude_cobblestone_axe_head", Item::new);
     public static final DeferredItem<CrudeCobblestoneSwordItem> CRUDE_COBBLESTONE_SWORD = ITEMS.registerItem(
             "crude_cobblestone_sword", CrudeCobblestoneSwordItem::new);
+    public static final DeferredItem<Item> CRUDE_COBBLESTONE_SWORD_HEAD = ITEMS.registerItem("crude_cobblestone_sword_head", Item::new);
     public static final DeferredItem<FlintKnifeItem> FLINT_KNIFE = ITEMS.registerItem(
             "flint_knife", FlintKnifeItem::new);
+    public static final DeferredItem<Item> BIRCH_SHELL = ITEMS.registerItem("birch_shell",(properties) -> new Item(properties){
+        @Override
+        public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context,
+                                    @NotNull TooltipDisplay tooltipDisplay, @NotNull Consumer<Component> tooltipAdder,
+                                    @NotNull TooltipFlag flag) {
+            tooltipAdder.accept(Component.translatable("item.birch_n_bees.birch_shell.description"));
+            super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
+        }
+    });
     public static final DeferredItem<BirchShieldItem> BIRCH_SHIELD = ITEMS.registerItem(
             "birch_shield", BirchShieldItem::new);
 
@@ -181,6 +215,21 @@ public class BirchItems {
                     validHeads = new ToolHead[2];
                     validHeads[0] = new ToolHead(HONEY_AXE_HEAD.get(), new ItemStack(HONEY_AXE.get()));
                     validHeads[1] = new ToolHead(HONEY_SHOVEL_HEAD.get(), new ItemStack(HONEY_SHOVEL.get()));
+                }
+            });
+    public static final DeferredItem<BuildableToolBase> WILDTHREAD_TOOL_BASE = ITEMS.registerItem("wildthread_tool_base",
+            (p) -> new BuildableToolBase(p, 2400){
+                @Override
+                public void fillValidHeads() {
+                    validHeads = new ToolHead[4];
+                    validHeads[0] = new ToolHead(CRUDE_COBBLESTONE_PICKAXE_HEAD.get(),
+                            new ItemStack(CRUDE_COBBLESTONE_PICKAXE.get()));
+                    validHeads[1] = new ToolHead(CRUDE_COBBLESTONE_AXE_HEAD.get(),
+                            new ItemStack(CRUDE_COBBLESTONE_AXE.get()));
+                    validHeads[2] = new ToolHead(CRUDE_COBBLESTONE_SWORD_HEAD.get(),
+                            new ItemStack(CRUDE_COBBLESTONE_SWORD.get()));
+                    validHeads[3] = new ToolHead(BIRCH_SHELL.get(),
+                            new ItemStack(BIRCH_SHIELD.get()));
                 }
             });
 }

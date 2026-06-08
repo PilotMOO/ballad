@@ -114,7 +114,7 @@ public class WildflowerPopperProjectileEntity extends Projectile implements Item
                                 foundStone.set(true);
                                 if (stone.tier <= 1) {
                                     poppedStone.set(true);
-                                    if (level.getRandom().nextBoolean()) BalladWorldEvents.popStone(face, level, bPos, stone);
+                                    if (level.getRandom().nextInt(2) == 0) BalladWorldEvents.popStone(face, level, bPos, stone);
                                 }
                                 breakIf.set(true);
                             }

@@ -23,7 +23,7 @@ import java.util.function.Consumer;
 public class BirchShieldItem extends ShieldItem {
     public BirchShieldItem(Properties properties) {
         super(properties
-                .durability(48)
+                .durability(128)
                 .repairable(ItemTags.WOODEN_TOOL_MATERIALS)
                 .equippableUnswappable(EquipmentSlot.OFFHAND)
                 .component(
