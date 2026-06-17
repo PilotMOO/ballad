@@ -17,6 +17,6 @@ public abstract class BeeDecoratorMixin extends TreeDecorator {
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void initMixin(float probability, CallbackInfo ci){
-        this.probability = .05f;
+        this.probability = .03f;
     }
 }

@@ -5,7 +5,8 @@
   "refmap": "birch_n_bees.refmap.json",
   "mixins": [
     "common.BeeDecoratorMixin",
-    "common.BirchInfector"
+    "common.BirchInfector",
+    "common.ItemUseMixin"
   ],
   "client": [
   ],

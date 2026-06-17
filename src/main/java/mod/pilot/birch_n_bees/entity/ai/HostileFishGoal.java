@@ -1,6 +1,16 @@
 package mod.pilot.birch_n_bees.entity.ai;
 
+import mod.pilot.birch_n_bees.ABalladofBirchandBees;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.advancements.AdvancementProgress;
+import net.minecraft.advancements.Criterion;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.PlayerAdvancements;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
@@ -9,6 +19,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.animal.Salmon;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -35,18 +46,59 @@ public class HostileFishGoal extends HostileMeleeGoal {
         super(mob, damage, followRange, bonusRange, speed, maxTimeNotVisible, targetPredicate);
     }
 
+    boolean wasInWater;
     @Override
     public void tick() {
         super.tick();
 
         LivingEntity target = mob.getTarget();
-        if (target != null && mob.invulnerableTime == 0 && mob.isInWaterOrRain()) {
-            Vec3 delta = mob.getDeltaMovement();
-            Vec3 to = target.position().subtract(mob.position()).normalize().scale(speed);
-            mob.setDeltaMovement(new Vec3(
-                    Mth.lerp(0.5d, delta.x, to.x),
-                    Mth.lerp(0.5d, delta.y, to.y),
-                    Mth.lerp(0.5d, delta.z, to.z)));
+        boolean wet = mob.isInWaterOrRain();
+        if (target != null && mob.invulnerableTime == 0) {
+            if (wet) {
+                Vec3 delta = mob.getDeltaMovement();
+                Vec3 to = target.position().subtract(mob.position()).normalize().scale(speed);
+                mob.setDeltaMovement(new Vec3(
+                        Mth.lerp(0.5d, delta.x, to.x),
+                        Mth.lerp(0.5d, delta.y, to.y),
+                        Mth.lerp(0.5d, delta.z, to.z)));
+            } else if (wasInWater){
+                Vec3 delta = mob.getDeltaMovement();
+                Vec3 to = target.position().subtract(mob.position()).normalize().scale(speed * 4);
+                mob.setDeltaMovement(new Vec3(
+                        Mth.lerp(0.5d, delta.x, to.x),
+                        speed * 2,
+                        Mth.lerp(0.5d, delta.z, to.z)));
+                mob.playSound(SoundEvents.GENERIC_SMALL_FALL, 1.0F, 2F);
+            }
         }
+        wasInWater = wet;
+    }
+
+    @Override
+    protected boolean attemptHit(LivingEntity target) {
+        boolean flag = super.attemptHit(target);
+        if (flag){
+            if (mob instanceof Salmon && target instanceof ServerPlayer p) {
+                System.out.println("shit yourself");
+                MinecraftServer server = p.getServer();
+                if (server != null) {
+                    System.out.println("server wasnt null");
+                    AdvancementHolder advance = server.getAdvancements().get(
+                            ResourceLocation.fromNamespaceAndPath(ABalladofBirchandBees.MOD_ID, "hostile_world/salmon"));
+                    PlayerAdvancements pAdv = p.getAdvancements();
+                    System.out.println("resource location thingy whore " + ResourceLocation.fromNamespaceAndPath(ABalladofBirchandBees.MOD_ID, "hostile_world/salmon"));
+                    System.out.println("advancement " + advance);
+                    AdvancementProgress progress;
+                    if (advance != null && !(progress = pAdv.getOrStartProgress(advance)).isDone()) {
+                        for (String c : progress.getRemainingCriteria()){
+                            System.out.println("shiteria " + c);
+                            boolean other = pAdv.award(advance, c);
+                            System.out.println("award flag thingy idfk " + other);
+                        }
+                    }
+                }
+            }
+        }
+        return flag;
     }
 }

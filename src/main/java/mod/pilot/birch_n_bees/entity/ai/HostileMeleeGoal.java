@@ -111,7 +111,7 @@ public class HostileMeleeGoal extends Goal {
         }
     }
 
-    private boolean attemptHit(LivingEntity target) {
+    protected boolean attemptHit(LivingEntity target) {
         if (mob.level() instanceof ServerLevel server) {
             double dist = mob.distanceToSqr(target);
             if (dist < getRangeSqr() && mob.hasLineOfSight(target)) {

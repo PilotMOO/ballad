@@ -103,7 +103,7 @@ public class BalladWorldEvents {
         BlockState bState = level.getBlockState(bPos);
         if (event.getItemStack().isEmpty() && bState.is(Blocks.BEE_NEST)){
             BeehiveBlockEntity hive = (BeehiveBlockEntity)level.getBlockEntity(bPos);
-            if (hive != null && bState.getValue(HONEY_LEVEL) >= 4){
+            if (hive != null && bState.getValue(HONEY_LEVEL) >= 3){
                 if (!hive.isSedated()) hive.emptyAllLivingFromHive(event.getEntity(), bState, BeehiveBlockEntity.BeeReleaseStatus.EMERGENCY);
                 level.setBlock(bPos, bState.setValue(HONEY_LEVEL, 0), 3);
                 Block.popResource(level, bPos, new ItemStack(Items.HONEYCOMB));
@@ -230,9 +230,7 @@ public class BalladWorldEvents {
             if (hive != null){
                 hive.emptyAllLivingFromHive(player, bState, BeehiveBlockEntity.BeeReleaseStatus.EMERGENCY);
             }
-            if (player.getRandom().nextBoolean()) {
-                Block.popResource(player.level(), event.getPos(), new ItemStack(Items.HONEYCOMB));
-            }
+            Block.popResource(player.level(), event.getPos(), new ItemStack(Items.HONEYCOMB));
         }
     }
 
@@ -306,7 +304,7 @@ public class BalladWorldEvents {
         if (effect != null){
             int level = effect.getAmplifier() + 1;
             float chance = 1f / level;
-            chance = 0f; //temp
+            //chance = 0f; //temp
             if (entity.getRandom().nextFloat() > chance){
                 event.setCanceled(true);
                 if (entity instanceof Player p){
@@ -322,9 +320,9 @@ public class BalladWorldEvents {
         assert entity != null;
         MobEffectInstance effect = entity.getEffect(BirchEffects.FEAR_EFFECT);
         if (effect != null){
-            int level = effect.getAmplifier() + 1;
+            int level = effect.getAmplifier() + 2;
             float chance = 1f / level;
-            chance = 0f; //temp
+            //chance = 0f; //temp
             if (entity.getRandom().nextFloat() > chance){
                 event.setCanceled(true);
                 entity.displayClientMessage(Component.translatable("birch_n_bees.panicking"), true);
