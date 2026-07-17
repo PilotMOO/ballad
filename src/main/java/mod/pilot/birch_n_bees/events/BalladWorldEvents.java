@@ -6,9 +6,9 @@ import mod.pilot.birch_n_bees.blocks.BirchBlocks;
 import mod.pilot.birch_n_bees.data.BirchDataHelper;
 import mod.pilot.birch_n_bees.effects.BirchEffects;
 import mod.pilot.birch_n_bees.entity.ai.HostileFishGoal;
-import mod.pilot.birch_n_bees.entity.ai.HostileMeleeGoal;
 import mod.pilot.birch_n_bees.items.BirchItems;
 import mod.pilot.birch_n_bees.util.BirchTags;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -24,8 +24,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bee;
@@ -43,6 +41,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ViewportEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
@@ -57,7 +56,6 @@ import org.jetbrains.annotations.Nullable;
 import oshi.util.tuples.Pair;
 
 import java.util.ArrayList;
-import java.util.function.Predicate;
 
 import static net.minecraft.world.level.block.BeehiveBlock.HONEY_LEVEL;
 
@@ -347,4 +345,15 @@ public class BalladWorldEvents {
             event.setNewSpeed(event.getOriginalSpeed() / 10f);
         } else event.setNewSpeed(event.getOriginalSpeed() / 5);
     }
+
+    /*@SubscribeEvent
+    public static void fovScope(ViewportEvent.ComputeFov event){
+        Entity entity = Minecraft.getInstance().cameraEntity;
+        if (entity instanceof LivingEntity lEntity){
+            if (lEntity.isUsingItem() && lEntity.getUseItem().is(BirchTags.Items.CAUSES_FOV_ZOOM)) {
+                float scale = Math.min((float)lEntity.getTicksUsingItem() / 20.0F, 1.0F);
+                event.setFOV(event.getFOV() * (1 - (scale * scale * 0.15F)));
+            }
+        }
+    }*/
 }

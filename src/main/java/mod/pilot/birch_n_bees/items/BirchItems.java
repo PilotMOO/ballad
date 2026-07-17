@@ -174,6 +174,8 @@ public class BirchItems {
     });
     public static final DeferredItem<BirchShieldItem> BIRCH_SHIELD = ITEMS.registerItem(
             "birch_shield", BirchShieldItem::new);
+    public static final DeferredItem<OvergrownBowItem> OVERGROWN_BOW = ITEMS.registerItem(
+            "overgrown_bow", OvergrownBowItem::new);
 
     public static final DeferredItem<WildflowerPopperItem> WILDFLOWER_POPPER = ITEMS.registerItem(
             "wildflower_popper", WildflowerPopperItem::new);
@@ -201,6 +203,8 @@ public class BirchItems {
             (properties -> new SpawnEggItem(BirchEntities.SPLINTERING.get(), properties)));
     public static final DeferredItem<SpawnEggItem> NESTHEAD_SPAWN = ITEMS.registerItem("nesthead_spawn",
             (properties -> new SpawnEggItem(BirchEntities.NESTHEAD.get(), properties)));
+    public static final DeferredItem<SpawnEggItem> BLOOMING_REMAINS_SPAWN = ITEMS.registerItem("blooming_remains_spawn",
+            (properties -> new SpawnEggItem(BirchEntities.BLOOMING_REMAINS.get(), properties)));
 
     public static final DeferredItem<Item> CLAYFLINT = ITEMS.registerItem("clayflint", (Item::new));
     public static final DeferredItem<Item> MOON = ITEMS.registerItem("moon", (Item::new));

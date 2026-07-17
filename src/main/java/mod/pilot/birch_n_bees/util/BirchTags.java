@@ -33,5 +33,7 @@ public class BirchTags {
         public static final TagKey<Item> COBBLE_TIER_3 = tag("cobble_tier_3");
 
         public static final TagKey<Item> KNIFE_HARVESTING = tag("knife_harvesting");
+
+        public static final TagKey<Item> CAUSES_FOV_ZOOM = tag("causes_fov_zoom");
     }
 }

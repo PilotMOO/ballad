@@ -3,6 +3,7 @@ package mod.pilot.birch_n_bees.events;
 
 import mod.pilot.birch_n_bees.ABalladofBirchandBees;
 import mod.pilot.birch_n_bees.entity.BirchEntities;
+import mod.pilot.birch_n_bees.entity.mob.BloomingRemainsEntity;
 import mod.pilot.birch_n_bees.entity.mob.NestHeadEntity;
 import mod.pilot.birch_n_bees.entity.mob.SplinteringEntity;
 import net.minecraft.world.entity.SpawnPlacementType;
@@ -20,10 +21,12 @@ public class BalladEventBus {
     public static void registerAttributes(EntityAttributeCreationEvent event){
         event.put(BirchEntities.SPLINTERING.get(), SplinteringEntity.createAttributes().build());
         event.put(BirchEntities.NESTHEAD.get(), NestHeadEntity.createAttributes().build());
+        event.put(BirchEntities.BLOOMING_REMAINS.get(), BloomingRemainsEntity.createAttributes().build());
     }
 
     @SubscribeEvent
     public static void registerMobSpawningRules(RegisterSpawnPlacementsEvent event){
+        //ToDo: add blooming remains to list
         event.register(BirchEntities.SPLINTERING.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SplinteringEntity::splinteringSpawnCheck, RegisterSpawnPlacementsEvent.Operation.AND);
         event.register(BirchEntities.NESTHEAD.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.WORLD_SURFACE, NestHeadEntity::nestHeadSpawnCheck, RegisterSpawnPlacementsEvent.Operation.AND);
     }

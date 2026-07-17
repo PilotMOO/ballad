@@ -60,6 +60,8 @@ public class BirchCreativeTabs {
                         register.accept(BirchItems.CRUDE_COBBLESTONE_SWORD_HEAD.get());
                         register.accept(BirchItems.BIRCH_SHELL.get());
 
+                        register.accept(BirchItems.OVERGROWN_BOW.get());
+
                         register.accept(BirchItems.WILDFLOWER_DRESSING);
                         register.accept(BirchItems.WILDFLOWER_BANDAGE);
                         register.accept(BirchItems.WILDFLOWER_POPPER);
@@ -68,6 +70,7 @@ public class BirchCreativeTabs {
 
                         register.accept(BirchItems.SPLINTERING_SPAWN);
                         register.accept(BirchItems.NESTHEAD_SPAWN);
+                        register.accept(BirchItems.BLOOMING_REMAINS_SPAWN);
                     })
                     .build());
 }

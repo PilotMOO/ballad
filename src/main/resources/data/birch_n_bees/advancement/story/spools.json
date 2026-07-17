@@ -21,7 +21,7 @@
       "id": "birch_n_bees:wildthread"
     },
     "title": {
-      "translate": "advancements.ballad.spool.title"
+      "translate": "advancements.ballad.spools.title"
     },
     "show_toast": true,
     "announce_to_chat": true,

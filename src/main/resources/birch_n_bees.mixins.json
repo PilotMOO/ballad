@@ -9,6 +9,7 @@
     "common.ItemUseMixin"
   ],
   "client": [
+    "client.AbstractClientPlayerMixin"
   ],
   "minVersion": "0.8"
 }

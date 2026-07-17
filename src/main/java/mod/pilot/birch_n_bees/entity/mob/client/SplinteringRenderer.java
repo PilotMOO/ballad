@@ -1,4 +1,4 @@
-package mod.pilot.birch_n_bees.entity.client.mob;
+package mod.pilot.birch_n_bees.entity.mob.client;
 
 import mod.pilot.birch_n_bees.entity.mob.SplinteringEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
