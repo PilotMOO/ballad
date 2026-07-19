@@ -23,4 +23,5 @@ public class BirchCriteriaRegistries {
     public static DeferredHolder<CriterionTrigger<?>, IllegalTrigger> CONTRABAND = illegalTrigger("contraband");
 
     public static DeferredHolder<CriterionTrigger<?>, CustomTrigger> NIGHT = registerTrigger("night");
+    public static DeferredHolder<CriterionTrigger<?>, CustomTrigger> SALMON = registerTrigger("salmon");
 }

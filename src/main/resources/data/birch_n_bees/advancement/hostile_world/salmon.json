@@ -2,14 +2,7 @@
   "parent": "birch_n_bees:hostile_world/root",
   "criteria": {
     "hurt": {
-      "trigger": "minecraft:entity_hurt_player",
-      "conditions": {
-        "damage": {
-          "source_entity": {
-            "type": "minecraft:salmon"
-          }
-        }
-      }
+      "trigger": "birch_n_bees:salmon"
     }
   },
   "display": {
@@ -18,7 +11,7 @@
     },
     "icon": {
       "count": 1,
-      "id": "minecraft:raw_salmon"
+      "id": "minecraft:salmon"
     },
     "title": {
       "translate": "advancements.hostile_world.salmon.title"

@@ -58,7 +58,8 @@ public class NestHeadEntity extends Zombie implements GeoEntity {
                 .add(Attributes.MOVEMENT_SPEED, 0.2D)
                 .add(Attributes.ATTACK_DAMAGE, 4D)
                 .add(Attributes.ATTACK_KNOCKBACK, 0.1D)
-                .add(Attributes.ATTACK_SPEED, 2D);
+                .add(Attributes.ATTACK_SPEED, 2D)
+                .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, 0D);
     }
 
     public static final int DEFAULT_BEES = 5;

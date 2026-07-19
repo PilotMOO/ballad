@@ -1,6 +1,7 @@
 package mod.pilot.birch_n_bees.entity.ai;
 
 import mod.pilot.birch_n_bees.ABalladofBirchandBees;
+import mod.pilot.birch_n_bees.achievements.BirchCriteriaRegistries;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementProgress;
@@ -78,25 +79,8 @@ public class HostileFishGoal extends HostileMeleeGoal {
     protected boolean attemptHit(LivingEntity target) {
         boolean flag = super.attemptHit(target);
         if (flag){
-            if (mob instanceof Salmon && target instanceof ServerPlayer p) {
-                System.out.println("shit yourself");
-                MinecraftServer server = p.getServer();
-                if (server != null) {
-                    System.out.println("server wasnt null");
-                    AdvancementHolder advance = server.getAdvancements().get(
-                            ResourceLocation.fromNamespaceAndPath(ABalladofBirchandBees.MOD_ID, "hostile_world/salmon"));
-                    PlayerAdvancements pAdv = p.getAdvancements();
-                    System.out.println("resource location thingy whore " + ResourceLocation.fromNamespaceAndPath(ABalladofBirchandBees.MOD_ID, "hostile_world/salmon"));
-                    System.out.println("advancement " + advance);
-                    AdvancementProgress progress;
-                    if (advance != null && !(progress = pAdv.getOrStartProgress(advance)).isDone()) {
-                        for (String c : progress.getRemainingCriteria()){
-                            System.out.println("shiteria " + c);
-                            boolean other = pAdv.award(advance, c);
-                            System.out.println("award flag thingy idfk " + other);
-                        }
-                    }
-                }
+            if (mob instanceof Salmon && target instanceof Player p) {
+                BirchCriteriaRegistries.SALMON.get().trigger(p);
             }
         }
         return flag;

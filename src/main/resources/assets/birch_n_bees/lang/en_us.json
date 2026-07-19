@@ -208,7 +208,7 @@
   "advancements.hostile_world.root.description": "§7The world is full of a bunch of hostile creatures! This is a cohesive list of all new or important entities.",
   "advancements.hostile_world.bee.title": "Float Like a Butterfly and Sting Like a...",
   "advancements.hostile_world.bee.description": "§7...Bee! The titular bee is now a very dangerous hazard. Bees are now always aggressive towards the player, and are frequently used to punished rule-breakers. Beware Killer Bees.",
-  "advancements.hostile_world.salmon.title": "Fishy Business",
+  "advancements.hostile_world.salmon.title": "Dangerously Fishy Business",
   "advancements.hostile_world.salmon.description": "§7Beware the frightful Salmranha! These half-salmon, half piranha flesh-eating monsters infest most rivers. They will aggressively attack anyone who dares enter their rivers.\n\nBe VERY CAREFUL if it starts raining.",
 
   "advancements.hostile_world.night.title": "Fear of the Dark",
@@ -218,5 +218,5 @@
   "advancements.hostile_world.nesthead.title": "A Rather Sticky Situation...",
   "advancements.hostile_world.nesthead.description": "§7The Nesthead is a zombie with a bee nest stuck to their head... Makes you wonder how that happened. Nestheads will spawn aggressive bees during their combat encounter, releasing swarms when hurt. The sticky honey glued to their bodies will slow opponents they touch.\n\n§6Nestheads don't have an infinite amount of bees and will eventually run out.",
   "advancements.hostile_world.blooming_remains.title": "A Flowerbed Deathbed",
-  "advancements.hostile_world.blooming_remains.description": "§7Blooming Remains are decayed skeletons overgrown with flora. These hostile flowerbeds are much weaker but faster than their more intact variant, nor do they burn in sunlight--- in fact, they regenerate! Careful when approaching, as they will run away if hurt, releasing a bunch of disorientating pollen!\n\nThey are rather cowardly, and much easier to deal with when alone..."
+  "advancements.hostile_world.blooming_remains.description": "§7Blooming Remains are decayed skeletons overgrown with flora. These hostile flowerbeds are much weaker but faster than their more intact variant, nor do they burn in sunlight--- in fact, they regenerate! They will run away if hurt, releasing a bunch of disorientating pollen.\n\nThey are rather cowardly, and much easier to deal with when alone..."
 }

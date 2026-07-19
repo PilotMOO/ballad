@@ -26,8 +26,8 @@ public class BalladEventBus {
 
     @SubscribeEvent
     public static void registerMobSpawningRules(RegisterSpawnPlacementsEvent event){
-        //ToDo: add blooming remains to list
-        event.register(BirchEntities.SPLINTERING.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SplinteringEntity::splinteringSpawnCheck, RegisterSpawnPlacementsEvent.Operation.AND);
+        event.register(BirchEntities.SPLINTERING.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.WORLD_SURFACE, SplinteringEntity::splinteringSpawnCheck, RegisterSpawnPlacementsEvent.Operation.AND);
         event.register(BirchEntities.NESTHEAD.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.WORLD_SURFACE, NestHeadEntity::nestHeadSpawnCheck, RegisterSpawnPlacementsEvent.Operation.AND);
+        event.register(BirchEntities.BLOOMING_REMAINS.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.WORLD_SURFACE, BloomingRemainsEntity::bloomingRemainsSpawnCheck, RegisterSpawnPlacementsEvent.Operation.AND);
     }
 }

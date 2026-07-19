@@ -16,6 +16,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -28,6 +29,7 @@ import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -35,7 +37,9 @@ import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -261,6 +265,11 @@ public class BloomingRemainsEntity extends AbstractSkeleton implements GeoEntity
     }
 
     @Override
+    protected void dropCustomDeathLoot(ServerLevel p_348683_, DamageSource p_21385_, boolean p_21387_) {
+        super.dropCustomDeathLoot(p_348683_, p_21385_, p_21387_);
+    }
+
+    @Override
     protected @NotNull SoundEvent getStepSound() {
         return SoundEvents.MUD_STEP;
     }
@@ -275,6 +284,11 @@ public class BloomingRemainsEntity extends AbstractSkeleton implements GeoEntity
     @Override
     protected @NotNull SoundEvent getDeathSound() {
         return SoundEvents.BOGGED_DEATH;
+    }
+
+    public static boolean bloomingRemainsSpawnCheck(EntityType<? extends Monster> entityType, ServerLevelAccessor level,
+                                             EntitySpawnReason spawnReason, BlockPos pos, RandomSource random){
+        return level.getBiome(pos).is(Tags.Biomes.IS_BIRCH_FOREST) && Monster.checkMonsterSpawnRules(entityType, level, spawnReason, pos, random);
     }
 
     //GECKOLIB STUFF
