@@ -25,9 +25,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Bee;
-import net.minecraft.world.entity.animal.Salmon;
+import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -65,13 +63,20 @@ public class BalladWorldEvents {
     public static void injectEntityAI(EntityJoinLevelEvent event){
         Entity entity = event.getEntity();
         if (entity instanceof LivingEntity){
-            if (entity instanceof Bee bee){
-                bee.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(bee, Player.class, true));
-            }
-            else if (entity instanceof Salmon salmon){
-                salmon.goalSelector.addGoal(1, new HostileFishGoal(salmon,
+            switch (entity) {
+                case Bee bee ->
+                        bee.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(bee, Player.class, true));
+                case Salmon salmon -> salmon.goalSelector.addGoal(1, new HostileFishGoal(salmon,
                         2f, 48d, 0d, 0.3d, 20,
                         HostileFishGoal.SALMON_HOSTILE_PREDICATE));
+                case Cod cod -> cod.goalSelector.addGoal(1, new HostileFishGoal(cod,
+                        1.5f, 48d, 0d, 0.4d, 10,
+                        HostileFishGoal.WATER_HOSTILE_PREDICATE));
+                case TropicalFish fish -> fish.goalSelector.addGoal(1, new HostileFishGoal(fish,
+                        1f, 48d, 0d, 0.45d, 5,
+                        HostileFishGoal.WATER_HOSTILE_PREDICATE));
+                default -> {
+                }
             }
         }
 
